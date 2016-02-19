@@ -441,8 +441,7 @@
                           <widget class="Gtk.Button" id="button4">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
-                            <property name="Type">TextAndIcon</property>
-                            <property name="Icon">stock:stock_lock Menu</property>
+                            <property name="Type">TextOnly</property>
                             <property name="Label" translatable="yes">Encrypt</property>
                             <property name="UseUnderline">True</property>
                           </widget>
@@ -457,8 +456,7 @@
                           <widget class="Gtk.Button" id="button5">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
-                            <property name="Type">TextAndIcon</property>
-                            <property name="Icon">stock:gtk-revert-to-saved Menu</property>
+                            <property name="Type">TextOnly</property>
                             <property name="Label" translatable="yes">Decrypt</property>
                             <property name="UseUnderline">True</property>
                           </widget>
@@ -473,8 +471,7 @@
                           <widget class="Gtk.Button" id="button6">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
-                            <property name="Type">TextAndIcon</property>
-                            <property name="Icon">stock:gtk-dialog-question Menu</property>
+                            <property name="Type">TextOnly</property>
                             <property name="Label" translatable="yes">Test</property>
                             <property name="UseUnderline">True</property>
                           </widget>
