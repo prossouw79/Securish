@@ -13,13 +13,11 @@
       <action id="openAction">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes" />
-        <property name="ShortLabel" translatable="yes" />
         <property name="StockId">gtk-open</property>
       </action>
       <action id="Action">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes" />
-        <property name="ShortLabel" translatable="yes" />
       </action>
     </action-group>
     <property name="MemberName" />
@@ -69,7 +67,7 @@
                             <property name="MemberName" />
                             <property name="Spacing">6</property>
                             <child>
-                              <widget class="Gtk.FileChooserButton" id="filechooserbutton2">
+                              <widget class="Gtk.FileChooserButton" id="filechooser_data">
                                 <property name="MemberName" />
                                 <property name="WidthRequest">200</property>
                               </widget>
@@ -121,7 +119,7 @@
                                 <property name="MemberName" />
                                 <property name="ShadowType">In</property>
                                 <child>
-                                  <widget class="Gtk.TextView" id="textview5">
+                                  <widget class="Gtk.TextView" id="txt_inputtext">
                                     <property name="MemberName" />
                                     <property name="HeightRequest">250</property>
                                     <property name="CanFocus">True</property>
@@ -144,7 +142,23 @@
                                     <property name="MemberName" />
                                     <property name="Spacing">6</property>
                                     <child>
-                                      <placeholder />
+                                      <widget class="Gtk.VBox" id="vbox5">
+                                        <property name="MemberName" />
+                                        <property name="Spacing">6</property>
+                                        <child>
+                                          <placeholder />
+                                        </child>
+                                        <child>
+                                          <placeholder />
+                                        </child>
+                                        <child>
+                                          <placeholder />
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="Position">0</property>
+                                        <property name="AutoSize">True</property>
+                                      </packing>
                                     </child>
                                   </widget>
                                   <packing>
@@ -225,10 +239,11 @@
                         <property name="MemberName" />
                         <property name="Spacing">6</property>
                         <child>
-                          <widget class="Gtk.RadioButton" id="radiobutton6">
+                          <widget class="Gtk.RadioButton" id="rdb_substitution">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
                             <property name="Label" translatable="yes">Substitution</property>
+                            <property name="Active">True</property>
                             <property name="DrawIndicator">True</property>
                             <property name="HasLabel">True</property>
                             <property name="UseUnderline">True</property>
@@ -242,7 +257,7 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="Gtk.RadioButton" id="radiobutton7">
+                          <widget class="Gtk.RadioButton" id="rdb_transposition">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
                             <property name="Label" translatable="yes">Transposition</property>
@@ -259,7 +274,7 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="Gtk.RadioButton" id="radiobutton8">
+                          <widget class="Gtk.RadioButton" id="rdb_vernam">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
                             <property name="Label" translatable="yes">Vernam</property>
@@ -296,7 +311,7 @@
                     <property name="MemberName" />
                     <property name="Spacing">6</property>
                     <child>
-                      <widget class="Gtk.RadioButton" id="radiobutton9">
+                      <widget class="Gtk.RadioButton" id="rdb_vigenere">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="Label" translatable="yes">Vigenere</property>
@@ -344,7 +359,7 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="Gtk.Entry" id="entry3">
+                              <widget class="Gtk.Entry" id="txt_inputkey">
                                 <property name="MemberName" />
                                 <property name="CanFocus">True</property>
                                 <property name="IsEditable">True</property>
@@ -378,7 +393,7 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="Gtk.FileChooserButton" id="filechooserbutton4">
+                          <widget class="Gtk.FileChooserButton" id="filechooser_keyfile">
                             <property name="MemberName" />
                           </widget>
                           <packing>
@@ -438,13 +453,14 @@
                         <property name="MemberName" />
                         <property name="Spacing">6</property>
                         <child>
-                          <widget class="Gtk.Button" id="button4">
+                          <widget class="Gtk.Button" id="btn_encrypt">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
                             <property name="Type">TextAndIcon</property>
                             <property name="Icon">stock:stock_lock Menu</property>
                             <property name="Label" translatable="yes">Encrypt</property>
                             <property name="UseUnderline">True</property>
+                            <signal name="Clicked" handler="OnBtnEncryptClicked" />
                           </widget>
                           <packing>
                             <property name="Position">0</property>
@@ -454,7 +470,7 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="Gtk.Button" id="button5">
+                          <widget class="Gtk.Button" id="btn_decrypt">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
                             <property name="Type">TextAndIcon</property>
@@ -470,7 +486,7 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="Gtk.Button" id="button6">
+                          <widget class="Gtk.Button" id="btn_test">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
                             <property name="Type">TextAndIcon</property>
@@ -535,11 +551,12 @@
                         <property name="MemberName" />
                         <property name="ShadowType">In</property>
                         <child>
-                          <widget class="Gtk.TextView" id="textview7">
+                          <widget class="Gtk.TextView" id="txt_log">
                             <property name="MemberName" />
                             <property name="WidthRequest">160</property>
                             <property name="CanFocus">True</property>
                             <property name="ShowScrollbars">True</property>
+                            <property name="Editable">False</property>
                             <property name="Text" translatable="yes" />
                           </widget>
                         </child>
@@ -556,7 +573,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="button1">
+                  <widget class="Gtk.Button" id="txt_log_clear">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>

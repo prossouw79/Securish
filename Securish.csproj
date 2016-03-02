@@ -62,8 +62,8 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Cryptography\Crypt_Files.cs" />
-    <Compile Include="Cryptography\Crypt_Text_AES.cs" />
+    <Compile Include="Cryptography\Vernam_files.cs" />
+    <Compile Include="Cryptography\Vernam_text.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

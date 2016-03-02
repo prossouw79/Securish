@@ -1,0 +1,6 @@
+/mnt/DataPartition/Github/Securish/obj/x86/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/mnt/DataPartition/Github/Securish/obj/x86/Release/Securish.gtk-gui.gui.stetic
+/mnt/DataPartition/Github/Securish/bin/Release/Securish.exe.mdb
+/mnt/DataPartition/Github/Securish/bin/Release/Securish.exe
+/mnt/DataPartition/Github/Securish/obj/x86/Release/Securish.exe
+/mnt/DataPartition/Github/Securish/obj/x86/Release/Securish.exe.mdb
