@@ -47,7 +47,7 @@ public partial class MainWindow: Gtk.Window
 
 			string encryptedfile = SaveFile ("Select encrypted file to decrypt");
 			string outputPath = encryptedfile + "_decr";
-			string keypath = getFilePath ("Select keyfile file");;
+			string keypath = OpenFile ("Select keyfile file");;
 
 			vfiles.DecryptFile (encryptedfile, keypath, outputPath);
 
