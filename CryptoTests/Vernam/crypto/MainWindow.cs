@@ -9,6 +9,10 @@ public partial class MainWindow: Gtk.Window
 	//variables
 	string currentDirectory;//use for temporary writes
 
+	byte[] last_cipherText;
+	byte[] last_keyText;
+	
+
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
@@ -79,6 +83,9 @@ public partial class MainWindow: Gtk.Window
 		if(plainTextBytes.Length == keyBytes.Length){
 			byte[] encryptedBytes = new byte[plainTextBytes.Length];
 			vn_enc.DoVernam (plainTextBytes, keyBytes, ref encryptedBytes);
+
+			last_cipherText = encryptedBytes;
+			last_keyText = keyBytes;
 
 			string encryptedString = GetString (encryptedBytes);
 			txt_encryption_view.Buffer.Text = encryptedString;
@@ -214,7 +221,6 @@ public partial class MainWindow: Gtk.Window
 	protected string SaveFile(string message)
 	{
 		string path = "";
-
 		Gtk.FileChooserDialog filechooser =
 			new Gtk.FileChooserDialog(message,
 			                          this,
@@ -272,11 +278,23 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnBtnSaveCipherKeyClicked (object sender, EventArgs e)
 	{
-		throw new NotImplementedException ();
+		string unique = DateTime.Now.ToString();
+
+		writeByteArrToFile (last_cipherText, currentDirectory + unique+ "_encryptedFile");
+		writeByteArrToFile (last_keyText, currentDirectory +unique + "_decryptionKey");
+		addToLog ("SAVED CipherText and Keypair to " + currentDirectory);
 	}
 
 	protected void OnBtnLoadcipherkeyClicked (object sender, EventArgs e)
 	{
-		throw new NotImplementedException ();
+		string encryptedFile, keyFile;
+		encryptedFile = OpenFile ("Please Select Encrypted File");
+		keyFile = OpenFile ("Please Select Key File");
+
+		last_cipherText = readFileToByteArr (encryptedFile);
+		last_keyText = readFileToByteArr (keyFile);
+
+		txt_encrypt_text.Text = GetString (last_cipherText);
+		txt_text_key.Text = GetString (last_keyText);
 	}
 }
