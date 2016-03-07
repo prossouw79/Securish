@@ -73,10 +73,10 @@ namespace crypto
 
 			for (int i = 0; i < inBytes.Length; i++) {
 				outBytes [i] = (byte)(inBytes [i] ^ keyBytes [i]);
-				Console.WriteLine (inBytes[i] + " ^ " + keyBytes[i] + ":\t" + outBytes[i]);
+		//		Console.WriteLine (inBytes[i] + " ^ " + keyBytes[i] + ":\t" + outBytes[i]);
 
 			}
-			Console.WriteLine ();
+			//Console.WriteLine ();
 		}
 
 

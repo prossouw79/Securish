@@ -25,76 +25,75 @@ public partial class MainWindow: Gtk.Window
 		Application.Quit ();
 		a.RetVal = true;
 	}
-
-
 	
 	protected void OnBtnTextEncryptClicked (object sender, EventArgs e)
 	{
-		vernam vn_enc = new vernam ();
+		if (txt_text_key.Text.Length > 0) {
+			vernam vn_enc = new vernam ();
 
-		string plaintext, keytext;
-		plaintext = txt_encrypt_text.Text;
-		keytext = txt_text_key.Text;
+			string plaintext, keytext;
+			plaintext = txt_encrypt_text.Text;
+			keytext = txt_text_key.Text;
 
-		//convert text to bytes
-		byte[] plainTextBytes = GetBytes (plaintext);
-		byte[] keyBytes = GetBytes (keytext);
+			//convert text to bytes
+			byte[] plainTextBytes = GetBytes (plaintext);
+			byte[] keyBytes = GetBytes (keytext);
 
-		//ensure message and key are equal in size
-		if (plainTextBytes.Length > keyBytes.Length) { 
-			List<byte> newKey = new List<byte> ();
+			//ensure message and key are equal in size
+			if (plainTextBytes.Length > keyBytes.Length) { 
+				List<byte> newKey = new List<byte> ();
 
-			double factor = plainTextBytes.Length / keyBytes.Length;
-			int repeats = ((int) factor) + 1;
+				double factor = plainTextBytes.Length / keyBytes.Length;
+				int repeats = ((int)factor) + 1;
 
-			for(int k = 0; k < repeats ; k++)
-			{
-				foreach (byte j in keyBytes) {
-					newKey.Add (j);
+				for (int k = 0; k < repeats; k++) {
+					foreach (byte j in keyBytes) {
+						newKey.Add (j);
+					}
+					Console.WriteLine ("plaintextlength: " + plainTextBytes.Length + " newKey Length " + newKey.Count);
+				}//newkey must now be equal or longer than plaintextbytes
+
+				while (newKey.Count > plainTextBytes.Length) {
+					int lastByte = newKey.Count - 1;
+					newKey.RemoveAt (lastByte);
 				}
-				Console.WriteLine ("plaintextlength: " + plainTextBytes.Length + " newKey Length " + newKey.Count);
-			}//newkey must now be equal or longer than plaintextbytes
+				keyBytes = newKey.ToArray ();
 
-			while (newKey.Count > plainTextBytes.Length) {
-				int lastByte = newKey.Count-1;
-				newKey.RemoveAt (lastByte);
+			} else if (plainTextBytes.Length < keyBytes.Length) { 
+				List<byte> newKey = new List<byte> ();
+
+				foreach (byte k in keyBytes) {
+					newKey.Add (k);
+				}
+
+
+				while (newKey.Count > plainTextBytes.Length) {
+					int lastByte = newKey.Count - 1;
+					newKey.RemoveAt (lastByte);
+				}
+				keyBytes = newKey.ToArray ();
+
+			} else { 												//key and message are same length
+
 			}
-			keyBytes = newKey.ToArray ();
+			if (plainTextBytes.Length == keyBytes.Length) {
+				byte[] encryptedBytes = new byte[plainTextBytes.Length];
+				vn_enc.DoVernam (plainTextBytes, keyBytes, ref encryptedBytes);
 
-		} else if (plainTextBytes.Length < keyBytes.Length) { 
-			List<byte> newKey = new List<byte> ();
+				last_cipherText = encryptedBytes;
+				last_keyText = keyBytes;
 
-			foreach (byte k in keyBytes) {
-				newKey.Add (k);
-			}
-
-
-			while (newKey.Count > plainTextBytes.Length) {
-				int lastByte = newKey.Count-1;
-				newKey.RemoveAt (lastByte);
-			}
-			keyBytes = newKey.ToArray ();
-
-		}
-		else 												//key and message are same length
-		{
-
-		}
-		if(plainTextBytes.Length == keyBytes.Length){
-			byte[] encryptedBytes = new byte[plainTextBytes.Length];
-			vn_enc.DoVernam (plainTextBytes, keyBytes, ref encryptedBytes);
-
-			last_cipherText = encryptedBytes;
-			last_keyText = keyBytes;
-
-			string encryptedString = GetString (encryptedBytes);
-			txt_encryption_view.Buffer.Text = encryptedString;
-	}else
-		txt_encryption_view.Buffer.Text = "Not equal length!\nText: " + plainTextBytes.Length + "\t Key: " + keyBytes.Length ;
+				string encryptedString = GetString (encryptedBytes);
+				txt_encryption_view.Buffer.Text = encryptedString;
+			} else
+				txt_encryption_view.Buffer.Text = "Not equal length!\nText: " + plainTextBytes.Length + "\t Key: " + keyBytes.Length;
+		} else
+			addToLog ("ENTER TEXT ENCRYPTION KEY FIRST!");
 	}
 
 	protected void OnBtnTextDecryptClicked (object sender, EventArgs e)
 	{
+		if (txt_text_key.Text.Length > 0) {
 		vernam vn_dec = new vernam ();
 
 		string ciphertext, keytext;
@@ -153,49 +152,167 @@ public partial class MainWindow: Gtk.Window
 			txt_encryption_view.Buffer.Text = decryptedString;
 		}else
 			txt_encryption_view.Buffer.Text = "Not equal length!\nText: " + cipherTextBytes.Length + "\t Key: " + keyBytes.Length ;
-
+		} else
+			addToLog ("ENTER TEXT DECRYPTION KEY FIRST!");
 	}
+
 	
 
 	protected void OnBtnFileEncryptClicked (object sender, EventArgs e)
 	{
-		//encrypt file
+		if (txt_file_key.Text.Length > 0) {
 		vernam vn_enc = new vernam ();
 
-		string inputPath = OpenFile ("Select file to encrypt");
+		string keytext;
+		string path = OpenFile ("Select File to Encrypt");
+		keytext = txt_file_key.Text;
 
-		string outputPath = inputPath + "_vnm";
-		string keypath = inputPath + "_key";
 
-		vn_enc.EncryptFile (inputPath,outputPath,keypath);
+		byte[] FileBytes;
+		byte[] keyBytes = GetBytes (keytext);
 
-		addToLog ("----ENCRYPTION----");
-		addToLog ("Input File:\t" + inputPath);
-		addToLog ("Output File:\t" + outputPath);
-		addToLog ("Key File:\t" + keypath);
-		addToLog ("Done!");
+		//read file
+		using (FileStream fs = new FileStream(path, FileMode.Open))
+		{
+			FileBytes = new byte[fs.Length];
+			fs.Read(FileBytes, 0, FileBytes.Length);
+		}
 
+		//ensure file and key are equal in size
+		if (FileBytes.Length > keyBytes.Length) { 
+			List<byte> newKey = new List<byte> ();
+
+			double factor = FileBytes.Length / keyBytes.Length;
+			int repeats = ((int) factor) + 1;
+
+			for(int k = 0; k < repeats ; k++)
+			{
+				foreach (byte j in keyBytes) {
+					newKey.Add (j);
+				}
+				Console.WriteLine ("plaintextlength: " + FileBytes.Length + " newKey Length " + newKey.Count);
+			}//newkey must now be equal or longer than plaintextbytes
+
+			while (newKey.Count > FileBytes.Length) {
+				int lastByte = newKey.Count-1;
+				newKey.RemoveAt (lastByte);
+			}
+			keyBytes = newKey.ToArray ();
+
+		} else if (FileBytes.Length < keyBytes.Length) { //unlikely
+			List<byte> newKey = new List<byte> ();
+
+			foreach (byte k in keyBytes) {
+				newKey.Add (k);
+			}
+
+
+			while (newKey.Count > FileBytes.Length) {
+				int lastByte = newKey.Count-1;
+				newKey.RemoveAt (lastByte);
+			}
+			keyBytes = newKey.ToArray ();
+
+		}
+		else 												//key and message are same length
+		{
+
+		}
+		if(FileBytes.Length == keyBytes.Length){
+			byte[] encryptedBytes = new byte[FileBytes.Length];
+			vn_enc.DoVernam (FileBytes, keyBytes, ref encryptedBytes);
+
+			last_cipherText = encryptedBytes;
+			last_keyText = keyBytes;
+
+			writeByteArrToFile (last_cipherText, path + "_enc");
+			addToLog ("SAVED Encrypted File and Keypair to " + currentDirectory);
+
+			
+		}else
+			txt_encryption_view.Buffer.Text = "Not equal length!\nText: " + FileBytes.Length + "\t Key: " + keyBytes.Length ;
+	} else
+		addToLog ("ENTER FILE ENCRYPTION KEY FIRST!");
 	}
+	
 
 	protected void OnBtnDecryptEncryptClicked (object sender, EventArgs e)
 	{
-		//decrypt file
+		if (txt_file_key.Text.Length > 0) {
+		vernam vn_enc = new vernam ();
 
-		vernam vn_dec = new vernam ();
+		string keytext;
+		string path = OpenFile ("Select File to Decrypt");
+		keytext = txt_file_key.Text;
 
-		string encryptedfile = OpenFile ("Select encrypted file to decrypt");
-		string outputPath = encryptedfile + "_decr";
-		string keypath = OpenFile ("Select keyfile file");
 
-		vn_dec.DecryptFile (encryptedfile, keypath, outputPath);
+		byte[] CipherFileBytes;
+		byte[] keyBytes = GetBytes (keytext);
 
-		addToLog ("----DECRYPTION----");
-		addToLog ("Input File:\t" + encryptedfile);
-		addToLog ("Key File:\t" + keypath);
-		addToLog ("Output File:\t" + outputPath);
-		addToLog ("Done!");
+		//read file
+		using (FileStream fs = new FileStream(path, FileMode.Open))
+		{
+			CipherFileBytes = new byte[fs.Length];
+			fs.Read(CipherFileBytes, 0, CipherFileBytes.Length);
+		}
+
+		//ensure file and key are equal in size
+		if (CipherFileBytes.Length > keyBytes.Length) { 
+			List<byte> newKey = new List<byte> ();
+
+			double factor = CipherFileBytes.Length / keyBytes.Length;
+			int repeats = ((int) factor) + 1;
+
+			for(int k = 0; k < repeats ; k++)
+			{
+				foreach (byte j in keyBytes) {
+					newKey.Add (j);
+				}
+				//Console.WriteLine ("plaintextlength: " + CipherFileBytes.Length + " newKey Length " + newKey.Count);
+			}//newkey must now be equal or longer than plaintextbytes
+
+			while (newKey.Count > CipherFileBytes.Length) {
+				int lastByte = newKey.Count-1;
+				newKey.RemoveAt (lastByte);
+			}
+			keyBytes = newKey.ToArray ();
+
+		} else if (CipherFileBytes.Length < keyBytes.Length) { //unlikely
+			List<byte> newKey = new List<byte> ();
+
+			foreach (byte k in keyBytes) {
+				newKey.Add (k);
+			}
+
+
+			while (newKey.Count > CipherFileBytes.Length) {
+				int lastByte = newKey.Count-1;
+				newKey.RemoveAt (lastByte);
+			}
+			keyBytes = newKey.ToArray ();
+
+		}
+		else 												//key and message are same length
+		{
+
+		}
+		if(CipherFileBytes.Length == keyBytes.Length){
+
+			byte[] decryptedBytes = new byte[CipherFileBytes.Length];
+			vn_enc.DoVernam (CipherFileBytes, keyBytes, ref decryptedBytes);
+
+			last_cipherText = decryptedBytes;
+
+			writeByteArrToFile (last_cipherText, path + "_decrypted");
+
+			addToLog ("SAVED Encrypted File and Keypair to " + path);
+
+
+		}else
+			txt_encryption_view.Buffer.Text = "Not equal length!\nText: " + CipherFileBytes.Length + "\t Key: " + keyBytes.Length ;
+} else
+	addToLog ("ENTER FILE DECRYPTION KEY FIRST!");
 	}
-
 
 	protected string OpenFile(string message)
 	{
@@ -240,7 +357,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected void addToLog(string msg)
 	{
-		txt_log.Buffer.Text += "\n" + msg;
+		txt_log.Buffer.Text += "\n" +DateTime.Now.ToString()+"\t---\t"+ msg;
 	}
 	protected void clearLog()
 	{

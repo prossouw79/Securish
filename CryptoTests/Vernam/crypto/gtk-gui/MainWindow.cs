@@ -32,7 +32,7 @@ public partial class MainWindow
 		global::Stetic.Gui.Initialize (this);
 		// Widget MainWindow
 		this.Name = "MainWindow";
-		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
+		this.Title = global::Mono.Unix.Catalog.GetString ("Vernam Cipher Implementation");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox10 = new global::Gtk.VBox ();
@@ -256,8 +256,6 @@ public partial class MainWindow
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.btn_text_encrypt.Clicked += new global::System.EventHandler (this.OnBtnTextEncryptClicked);
 		this.btn_text_decrypt.Clicked += new global::System.EventHandler (this.OnBtnTextDecryptClicked);
-		this.btn_saveCipherKey.Clicked += new global::System.EventHandler (this.OnBtnSaveCipherKeyClicked);
-		this.btn_loadcipherkey.Clicked += new global::System.EventHandler (this.OnBtnLoadcipherkeyClicked);
 		this.btn_file_encrypt.Clicked += new global::System.EventHandler (this.OnBtnFileEncryptClicked);
 		this.btn_decrypt_encrypt.Clicked += new global::System.EventHandler (this.OnBtnDecryptEncryptClicked);
 	}

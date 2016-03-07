@@ -10,7 +10,7 @@
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="667 449">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="Title" translatable="yes">Vernam Cipher Implementation</property>
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
