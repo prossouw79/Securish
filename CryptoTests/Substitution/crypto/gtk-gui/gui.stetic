@@ -8,10 +8,12 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/crypto.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="667 411">
+  <widget class="Gtk.Window" id="MainWindow" design-size="667 449">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="WidthRequest">480</property>
+    <property name="Title" translatable="yes">Substitution Cipher Implementation</property>
     <property name="WindowPosition">CenterOnParent</property>
+    <property name="AllowShrink">True</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
       <widget class="Gtk.VBox" id="vbox10">
@@ -34,10 +36,12 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Entry" id="entry3">
+              <widget class="Gtk.Entry" id="txt_encrypt_text">
                 <property name="MemberName" />
+                <property name="WidthRequest">64</property>
                 <property name="CanFocus">True</property>
                 <property name="IsEditable">True</property>
+                <property name="InvisibleChar">●</property>
               </widget>
               <packing>
                 <property name="Position">1</property>
@@ -49,6 +53,7 @@
             <child>
               <widget class="Gtk.HBox" id="hbox9">
                 <property name="MemberName" />
+                <property name="WidthRequest">128</property>
                 <property name="Spacing">6</property>
                 <child>
                   <widget class="Gtk.Button" id="btn_text_encrypt">
@@ -83,9 +88,9 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Label" id="label6">
+                  <widget class="Gtk.Label" id="label1">
                     <property name="MemberName" />
-                    <property name="LabelProp" translatable="yes">Using Key:</property>
+                    <property name="LabelProp" translatable="yes">Using Shift Value:</property>
                   </widget>
                   <packing>
                     <property name="Position">2</property>
@@ -95,15 +100,22 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Entry" id="entry5">
+                  <widget class="Gtk.SpinButton" id="spn_text_shift">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
-                    <property name="IsEditable">True</property>
+                    <property name="Upper">100</property>
+                    <property name="PageIncrement">10</property>
+                    <property name="StepIncrement">1</property>
+                    <property name="ClimbRate">1</property>
+                    <property name="Numeric">True</property>
+                    <signal name="ValueChanged" handler="OnSpnTextShiftValueChanged" />
                   </widget>
                   <packing>
                     <property name="PackType">End</property>
                     <property name="Position">3</property>
                     <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
                   </packing>
                 </child>
               </widget>
@@ -131,8 +143,9 @@
                 <property name="MemberName" />
                 <property name="ShadowType">In</property>
                 <child>
-                  <widget class="Gtk.TextView" id="textview3">
+                  <widget class="Gtk.TextView" id="txt_encryption_view">
                     <property name="MemberName" />
+                    <property name="WidthRequest">64</property>
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
                     <property name="Text" translatable="yes" />
@@ -145,25 +158,22 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Label" id="lbl_Files">
+              <widget class="Gtk.HBox" id="hbox1">
                 <property name="MemberName" />
-                <property name="LabelProp" translatable="yes">File Encryption</property>
+                <property name="Spacing">6</property>
+                <child>
+                  <placeholder />
+                </child>
               </widget>
               <packing>
                 <property name="Position">1</property>
                 <property name="AutoSize">True</property>
-                <property name="Expand">False</property>
-                <property name="Fill">False</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Button" id="btn_OpenFile">
+              <widget class="Gtk.Label" id="lbl_Files">
                 <property name="MemberName" />
-                <property name="CanFocus">True</property>
-                <property name="Type">TextOnly</property>
-                <property name="Label" translatable="yes">Open File</property>
-                <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnBtnOpenFileClicked" />
+                <property name="LabelProp" translatable="yes">File Encryption</property>
               </widget>
               <packing>
                 <property name="Position">2</property>
@@ -219,21 +229,27 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Entry" id="entry6">
+                  <widget class="Gtk.Label" id="label2">
                     <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="IsEditable">True</property>
+                    <property name="LabelProp" translatable="yes">Using Shift Value:</property>
                   </widget>
                   <packing>
-                    <property name="PackType">End</property>
                     <property name="Position">2</property>
                     <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Label" id="label7">
+                  <widget class="Gtk.SpinButton" id="spn_file_shift">
                     <property name="MemberName" />
-                    <property name="LabelProp" translatable="yes">Using Key:</property>
+                    <property name="CanFocus">True</property>
+                    <property name="Upper">100</property>
+                    <property name="PageIncrement">10</property>
+                    <property name="StepIncrement">1</property>
+                    <property name="ClimbRate">1</property>
+                    <property name="Numeric">True</property>
+                    <signal name="ValueChanged" handler="OnSpnFileShiftValueChanged" />
                   </widget>
                   <packing>
                     <property name="PackType">End</property>
@@ -256,8 +272,9 @@
                 <property name="MemberName" />
                 <property name="ShadowType">In</property>
                 <child>
-                  <widget class="Gtk.TextView" id="textview4">
+                  <widget class="Gtk.TextView" id="txt_log">
                     <property name="MemberName" />
+                    <property name="WidthRequest">64</property>
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
                     <property name="Text" translatable="yes" />
@@ -272,6 +289,25 @@
           </widget>
           <packing>
             <property name="Position">2</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.HBox" id="hbox2">
+            <property name="MemberName" />
+            <property name="Spacing">6</property>
+            <child>
+              <placeholder />
+            </child>
+            <child>
+              <placeholder />
+            </child>
+            <child>
+              <placeholder />
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">3</property>
             <property name="AutoSize">True</property>
           </packing>
         </child>

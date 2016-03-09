@@ -5,7 +5,7 @@ namespace crypto
 {
 	public class vernam
 	{
-		public void EncryptFile(string originalFile, string encryptedFile, string keyFile)
+		/*public void EncryptFile(string originalFile, string encryptedFile, string keyFile)
 		{
 
 			byte[] originalBytes;
@@ -56,7 +56,7 @@ namespace crypto
 			{
 				fs.Write(decryptedBytes, 0, decryptedBytes.Length);
 			}
-		}
+		}*/
 
 		public void DoVernam(byte[] inBytes, byte[] keyBytes, ref byte[] outBytes)
 		{

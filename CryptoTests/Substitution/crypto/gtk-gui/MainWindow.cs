@@ -5,33 +5,36 @@ public partial class MainWindow
 	private global::Gtk.VBox vbox10;
 	private global::Gtk.VBox vbox11;
 	private global::Gtk.Label lbl_Text;
-	private global::Gtk.Entry entry3;
+	private global::Gtk.Entry txt_encrypt_text;
 	private global::Gtk.HBox hbox9;
 	private global::Gtk.Button btn_text_encrypt;
 	private global::Gtk.Button btn_text_decrypt;
-	private global::Gtk.Label label6;
-	private global::Gtk.Entry entry5;
+	private global::Gtk.Label label1;
+	private global::Gtk.SpinButton spn_text_shift;
 	private global::Gtk.VBox vbox12;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
-	private global::Gtk.TextView textview3;
+	private global::Gtk.TextView txt_encryption_view;
+	private global::Gtk.HBox hbox1;
 	private global::Gtk.Label lbl_Files;
-	private global::Gtk.Button btn_OpenFile;
 	private global::Gtk.VBox vbox13;
 	private global::Gtk.HBox hbox10;
 	private global::Gtk.Button btn_file_encrypt;
 	private global::Gtk.Button btn_decrypt_encrypt;
-	private global::Gtk.Entry entry6;
-	private global::Gtk.Label label7;
+	private global::Gtk.Label label2;
+	private global::Gtk.SpinButton spn_file_shift;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-	private global::Gtk.TextView textview4;
+	private global::Gtk.TextView txt_log;
+	private global::Gtk.HBox hbox2;
 
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
 		// Widget MainWindow
+		this.WidthRequest = 480;
 		this.Name = "MainWindow";
-		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
+		this.Title = global::Mono.Unix.Catalog.GetString ("Substitution Cipher Implementation");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+		this.AllowShrink = true;
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox10 = new global::Gtk.VBox ();
 		this.vbox10.Name = "vbox10";
@@ -50,17 +53,20 @@ public partial class MainWindow
 		w1.Expand = false;
 		w1.Fill = false;
 		// Container child vbox11.Gtk.Box+BoxChild
-		this.entry3 = new global::Gtk.Entry ();
-		this.entry3.CanFocus = true;
-		this.entry3.Name = "entry3";
-		this.entry3.IsEditable = true;
-		this.vbox11.Add (this.entry3);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox11 [this.entry3]));
+		this.txt_encrypt_text = new global::Gtk.Entry ();
+		this.txt_encrypt_text.WidthRequest = 64;
+		this.txt_encrypt_text.CanFocus = true;
+		this.txt_encrypt_text.Name = "txt_encrypt_text";
+		this.txt_encrypt_text.IsEditable = true;
+		this.txt_encrypt_text.InvisibleChar = '●';
+		this.vbox11.Add (this.txt_encrypt_text);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox11 [this.txt_encrypt_text]));
 		w2.Position = 1;
 		w2.Expand = false;
 		w2.Fill = false;
 		// Container child vbox11.Gtk.Box+BoxChild
 		this.hbox9 = new global::Gtk.HBox ();
+		this.hbox9.WidthRequest = 128;
 		this.hbox9.Name = "hbox9";
 		this.hbox9.Spacing = 6;
 		// Container child hbox9.Gtk.Box+BoxChild
@@ -86,23 +92,27 @@ public partial class MainWindow
 		w4.Expand = false;
 		w4.Fill = false;
 		// Container child hbox9.Gtk.Box+BoxChild
-		this.label6 = new global::Gtk.Label ();
-		this.label6.Name = "label6";
-		this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Using Key:");
-		this.hbox9.Add (this.label6);
-		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.label6]));
+		this.label1 = new global::Gtk.Label ();
+		this.label1.Name = "label1";
+		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("Using Shift Value:");
+		this.hbox9.Add (this.label1);
+		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.label1]));
 		w5.Position = 2;
 		w5.Expand = false;
 		w5.Fill = false;
 		// Container child hbox9.Gtk.Box+BoxChild
-		this.entry5 = new global::Gtk.Entry ();
-		this.entry5.CanFocus = true;
-		this.entry5.Name = "entry5";
-		this.entry5.IsEditable = true;
-		this.hbox9.Add (this.entry5);
-		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.entry5]));
+		this.spn_text_shift = new global::Gtk.SpinButton (0, 100, 1);
+		this.spn_text_shift.CanFocus = true;
+		this.spn_text_shift.Name = "spn_text_shift";
+		this.spn_text_shift.Adjustment.PageIncrement = 10;
+		this.spn_text_shift.ClimbRate = 1;
+		this.spn_text_shift.Numeric = true;
+		this.hbox9.Add (this.spn_text_shift);
+		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.spn_text_shift]));
 		w6.PackType = ((global::Gtk.PackType)(1));
 		w6.Position = 3;
+		w6.Expand = false;
+		w6.Fill = false;
 		this.vbox11.Add (this.hbox9);
 		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox11 [this.hbox9]));
 		w7.Position = 2;
@@ -122,30 +132,26 @@ public partial class MainWindow
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-		this.textview3 = new global::Gtk.TextView ();
-		this.textview3.CanFocus = true;
-		this.textview3.Name = "textview3";
-		this.GtkScrolledWindow.Add (this.textview3);
+		this.txt_encryption_view = new global::Gtk.TextView ();
+		this.txt_encryption_view.WidthRequest = 64;
+		this.txt_encryption_view.CanFocus = true;
+		this.txt_encryption_view.Name = "txt_encryption_view";
+		this.GtkScrolledWindow.Add (this.txt_encryption_view);
 		this.vbox12.Add (this.GtkScrolledWindow);
 		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.GtkScrolledWindow]));
 		w10.Position = 0;
+		// Container child vbox12.Gtk.Box+BoxChild
+		this.hbox1 = new global::Gtk.HBox ();
+		this.hbox1.Spacing = 6;
+		this.vbox12.Add (this.hbox1);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.hbox1]));
+		w11.Position = 1;
 		// Container child vbox12.Gtk.Box+BoxChild
 		this.lbl_Files = new global::Gtk.Label ();
 		this.lbl_Files.Name = "lbl_Files";
 		this.lbl_Files.LabelProp = global::Mono.Unix.Catalog.GetString ("File Encryption");
 		this.vbox12.Add (this.lbl_Files);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.lbl_Files]));
-		w11.Position = 1;
-		w11.Expand = false;
-		w11.Fill = false;
-		// Container child vbox12.Gtk.Box+BoxChild
-		this.btn_OpenFile = new global::Gtk.Button ();
-		this.btn_OpenFile.CanFocus = true;
-		this.btn_OpenFile.Name = "btn_OpenFile";
-		this.btn_OpenFile.UseUnderline = true;
-		this.btn_OpenFile.Label = global::Mono.Unix.Catalog.GetString ("Open File");
-		this.vbox12.Add (this.btn_OpenFile);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.btn_OpenFile]));
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.lbl_Files]));
 		w12.Position = 2;
 		w12.Expand = false;
 		w12.Fill = false;
@@ -183,20 +189,23 @@ public partial class MainWindow
 		w15.Expand = false;
 		w15.Fill = false;
 		// Container child hbox10.Gtk.Box+BoxChild
-		this.entry6 = new global::Gtk.Entry ();
-		this.entry6.CanFocus = true;
-		this.entry6.Name = "entry6";
-		this.entry6.IsEditable = true;
-		this.hbox10.Add (this.entry6);
-		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.entry6]));
-		w16.PackType = ((global::Gtk.PackType)(1));
+		this.label2 = new global::Gtk.Label ();
+		this.label2.Name = "label2";
+		this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Using Shift Value:");
+		this.hbox10.Add (this.label2);
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.label2]));
 		w16.Position = 2;
+		w16.Expand = false;
+		w16.Fill = false;
 		// Container child hbox10.Gtk.Box+BoxChild
-		this.label7 = new global::Gtk.Label ();
-		this.label7.Name = "label7";
-		this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Using Key:");
-		this.hbox10.Add (this.label7);
-		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.label7]));
+		this.spn_file_shift = new global::Gtk.SpinButton (0, 100, 1);
+		this.spn_file_shift.CanFocus = true;
+		this.spn_file_shift.Name = "spn_file_shift";
+		this.spn_file_shift.Adjustment.PageIncrement = 10;
+		this.spn_file_shift.ClimbRate = 1;
+		this.spn_file_shift.Numeric = true;
+		this.hbox10.Add (this.spn_file_shift);
+		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.spn_file_shift]));
 		w17.PackType = ((global::Gtk.PackType)(1));
 		w17.Position = 3;
 		w17.Expand = false;
@@ -211,28 +220,37 @@ public partial class MainWindow
 		this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
 		this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
-		this.textview4 = new global::Gtk.TextView ();
-		this.textview4.CanFocus = true;
-		this.textview4.Name = "textview4";
-		this.GtkScrolledWindow1.Add (this.textview4);
+		this.txt_log = new global::Gtk.TextView ();
+		this.txt_log.WidthRequest = 64;
+		this.txt_log.CanFocus = true;
+		this.txt_log.Name = "txt_log";
+		this.GtkScrolledWindow1.Add (this.txt_log);
 		this.vbox13.Add (this.GtkScrolledWindow1);
 		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.GtkScrolledWindow1]));
 		w20.Position = 1;
 		this.vbox10.Add (this.vbox13);
 		global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.vbox13]));
 		w21.Position = 2;
+		// Container child vbox10.Gtk.Box+BoxChild
+		this.hbox2 = new global::Gtk.HBox ();
+		this.hbox2.Name = "hbox2";
+		this.hbox2.Spacing = 6;
+		this.vbox10.Add (this.hbox2);
+		global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.hbox2]));
+		w22.Position = 3;
 		this.Add (this.vbox10);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
 		this.DefaultWidth = 667;
-		this.DefaultHeight = 411;
+		this.DefaultHeight = 449;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.btn_text_encrypt.Clicked += new global::System.EventHandler (this.OnBtnTextEncryptClicked);
 		this.btn_text_decrypt.Clicked += new global::System.EventHandler (this.OnBtnTextDecryptClicked);
-		this.btn_OpenFile.Clicked += new global::System.EventHandler (this.OnBtnOpenFileClicked);
+		this.spn_text_shift.ValueChanged += new global::System.EventHandler (this.OnSpnTextShiftValueChanged);
 		this.btn_file_encrypt.Clicked += new global::System.EventHandler (this.OnBtnFileEncryptClicked);
 		this.btn_decrypt_encrypt.Clicked += new global::System.EventHandler (this.OnBtnDecryptEncryptClicked);
+		this.spn_file_shift.ValueChanged += new global::System.EventHandler (this.OnSpnFileShiftValueChanged);
 	}
 }

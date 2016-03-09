@@ -26,6 +26,7 @@ public partial class MainWindow
 	private global::Gtk.Label label7;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 	private global::Gtk.TextView txt_log;
+	private global::Gtk.HBox hbox2;
 
 	protected virtual void Build ()
 	{
@@ -246,6 +247,13 @@ public partial class MainWindow
 		this.vbox10.Add (this.vbox13);
 		global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.vbox13]));
 		w23.Position = 2;
+		// Container child vbox10.Gtk.Box+BoxChild
+		this.hbox2 = new global::Gtk.HBox ();
+		this.hbox2.Name = "hbox2";
+		this.hbox2.Spacing = 6;
+		this.vbox10.Add (this.hbox2);
+		global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.hbox2]));
+		w24.Position = 3;
 		this.Add (this.vbox10);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -256,6 +264,8 @@ public partial class MainWindow
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.btn_text_encrypt.Clicked += new global::System.EventHandler (this.OnBtnTextEncryptClicked);
 		this.btn_text_decrypt.Clicked += new global::System.EventHandler (this.OnBtnTextDecryptClicked);
+		this.btn_saveCipherKey.Clicked += new global::System.EventHandler (this.OnBtnSaveCipherKeyClicked);
+		this.btn_loadcipherkey.Clicked += new global::System.EventHandler (this.OnBtnLoadcipherkeyClicked);
 		this.btn_file_encrypt.Clicked += new global::System.EventHandler (this.OnBtnFileEncryptClicked);
 		this.btn_decrypt_encrypt.Clicked += new global::System.EventHandler (this.OnBtnDecryptEncryptClicked);
 	}
