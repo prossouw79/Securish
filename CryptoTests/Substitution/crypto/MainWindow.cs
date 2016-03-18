@@ -18,6 +18,8 @@ public partial class MainWindow: Gtk.Window
 		Build ();
 		currentDirectory = Environment.CurrentDirectory + "/";
 		Console.WriteLine ("Current Directory:\t" + currentDirectory);
+
+		substitution sub = new substitution ();
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -29,38 +31,14 @@ public partial class MainWindow: Gtk.Window
 	protected void OnBtnTextEncryptClicked (object sender, EventArgs e)
 	{
 		substitution sub_enc = new substitution ();
-		string plaintext;
-		plaintext = txt_encrypt_text.Text;
-
-		//convert text to bytes
-		byte[] plainTextBytes = GetBytes (plaintext);
-		byte[] encryptedBytes = new byte[plainTextBytes.Length];
-
-
-			sub_enc.DoSubstitution (plainTextBytes, ref encryptedBytes,text_shiftValue,true);
-
-			last_cipherText = encryptedBytes;
-
-			string encryptedString = GetString (encryptedBytes);
-			txt_encryption_view.Buffer.Text = encryptedString;
+		txt_encryption_view.Buffer.Text = sub_enc.DoSubstitutionText(txt_encrypt_text.Text,text_shiftValue,true);
 
 	}
 
 	protected void OnBtnTextDecryptClicked (object sender, EventArgs e)
 	{
-			substitution sub_dec = new substitution ();
-
-		string ciphertext = txt_encrypt_text.Text;
-
-		//convert text to bytes
-		byte[] cipherTextBytes = GetBytes (ciphertext);
-
-
-		byte[] encryptedBytes = new byte[cipherTextBytes.Length];
-		sub_dec.DoSubstitution (cipherTextBytes, ref encryptedBytes,text_shiftValue,false);
-
-		string decryptedString = GetString (encryptedBytes);
-		txt_encryption_view.Buffer.Text = decryptedString;
+		substitution sub_dec = new substitution ();
+		txt_encryption_view.Buffer.Text = sub_dec.DoSubstitutionText(txt_encrypt_text.Text,text_shiftValue,false);
 
 	}
 

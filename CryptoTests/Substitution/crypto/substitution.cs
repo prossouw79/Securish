@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace crypto
 {
 	public class substitution
 	{
+
 		public substitution ()
 		{
 		}
@@ -28,6 +31,23 @@ namespace crypto
 				outBytes [i] = (byte)(inBytes [i]+absVal);
 			}
 
+		}
+
+		public string DoSubstitutionText(string input, int value, bool encryption)
+		{
+			string outp = "";
+			int absVal = Math.Abs (value);
+
+			if (!encryption)
+				absVal *= -1;//minus value for decryption no matter input value
+
+			char[] tmp = input.ToCharArray ();
+			foreach (char c in tmp) {
+				outp += (char) ((int)c + absVal);
+			}
+			
+				
+			return outp;
 		}
 	}
 }
