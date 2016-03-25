@@ -61,6 +61,8 @@ public partial class MainWindow: Gtk.Window
 		byte[] fileToProcess = new byte[5];
 		if (filePath != "-")
 			fileToProcess = this.readFileToByteArr (filePath);
+		else
+			fileToProcess = this.GetBytes (plainText);
 
 
 
@@ -90,7 +92,12 @@ public partial class MainWindow: Gtk.Window
 					}
 					case 1: //vernam encryption
 					{
-						addToLog ("vernam encryption NOT IMPLEMENTED");
+						//addToLog ("vernam encryption NOT IMPLEMENTED");
+						byte[] outputBytes = fileToProcess;
+						if (filePath == "-")
+						{
+						//obj_vernam.DoVernam (fileToProcess, GetBytes (keyText), outputBytes);
+					}
 						break;
 					}
 					case 2: //transposition encryption
@@ -110,7 +117,21 @@ public partial class MainWindow: Gtk.Window
 				switch (algorithm) {
 				case 0: //substitution decryption
 				{
-					addToLog ("substitution decryption NOT IMPLEMENTED");
+					//addToLog ("substitution decryption NOT IMPLEMENTED");
+					string outputText = "";
+					byte[] outputBytes = fileToProcess;
+					if (filePath == "-")
+					{
+						outputText = obj_substitution.DoSubstitutionText (plainText, shiftValue, false);
+						addToLog ("Ciphertext:\t" + outputText);
+					} 
+					else 
+					{
+						obj_substitution.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, false);
+						writeByteArrToFile(outputBytes,filePath+"_dec");
+						addToLog("Encrypted file written to "+filePath+"_dec");
+					}
+
 					break;
 				}
 				case 1: //vernam decryption

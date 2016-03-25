@@ -317,12 +317,6 @@ public partial class MainWindow
 		}
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-		this.txt_plaintext_input.Changed += new global::System.EventHandler (this.OnTxtPlaintextInputChanged);
-		this.btn_file_input.Clicked += new global::System.EventHandler (this.OnBtnFileInputClicked);
-		this.cmb_algorithm.Changed += new global::System.EventHandler (this.OnCmbAlgorithmChanged);
-		this.cmb_mode.Changed += new global::System.EventHandler (this.OnCmbModeChanged);
-		this.txt_keytext_input.Changed += new global::System.EventHandler (this.OnTxtKeytextInputChanged);
-		this.spb_shift.ValueChanged += new global::System.EventHandler (this.OnSpbShiftValueChanged);
 		this.btn_Go.Clicked += new global::System.EventHandler (this.OnBtnGoClicked);
 	}
 }

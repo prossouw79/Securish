@@ -1,9 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Securish_Cryptosystem/transposition.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Securish_Cryptosystem/MainWindow.cs">
     <Files>
       <File FileName="Securish_Cryptosystem/Program.cs" Line="1" Column="1" />
-      <File FileName="Securish_Cryptosystem/transposition.cs" Line="1" Column="1" />
+      <File FileName="Securish_Cryptosystem/MainWindow.cs" Line="88" Column="6" />
+      <File FileName="Securish_Cryptosystem/substitution.cs" Line="1" Column="1" />
+      <File FileName="Securish_Cryptosystem/vernam.cs" Line="15" Column="60" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

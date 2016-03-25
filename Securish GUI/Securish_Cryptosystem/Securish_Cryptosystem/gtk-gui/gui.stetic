@@ -61,7 +61,6 @@
                                 <property name="CanFocus">True</property>
                                 <property name="IsEditable">True</property>
                                 <property name="InvisibleChar">●</property>
-                                <signal name="Changed" handler="OnTxtPlaintextInputChanged" />
                               </widget>
                               <packing>
                                 <property name="Position">1</property>
@@ -88,7 +87,6 @@
                                 <property name="Icon">stock:stock_folder Button</property>
                                 <property name="Label">Open File</property>
                                 <property name="UseUnderline">True</property>
-                                <signal name="Clicked" handler="OnBtnFileInputClicked" />
                               </widget>
                               <packing>
                                 <property name="Position">3</property>
@@ -137,7 +135,6 @@
 Vernam
 Transposition
 Vigenere</property>
-                            <signal name="Changed" handler="OnCmbAlgorithmChanged" />
                           </widget>
                         </child>
                       </widget>
@@ -176,7 +173,6 @@ Vigenere</property>
                             <property name="IsTextCombo">True</property>
                             <property name="Items" translatable="yes">Encryption
 Decryption</property>
-                            <signal name="Changed" handler="OnCmbModeChanged" />
                           </widget>
                         </child>
                       </widget>
@@ -231,7 +227,6 @@ Decryption</property>
                                 <property name="CanFocus">True</property>
                                 <property name="IsEditable">True</property>
                                 <property name="InvisibleChar">●</property>
-                                <signal name="Changed" handler="OnTxtKeytextInputChanged" />
                               </widget>
                               <packing>
                                 <property name="Position">1</property>
@@ -259,7 +254,6 @@ Decryption</property>
                                 <property name="StepIncrement">1</property>
                                 <property name="ClimbRate">1</property>
                                 <property name="Numeric">True</property>
-                                <signal name="ValueChanged" handler="OnSpbShiftValueChanged" />
                               </widget>
                               <packing>
                                 <property name="Position">3</property>

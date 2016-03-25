@@ -1,80 +1,53 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace crypto
 {
 	public class vernam
 	{
-		/*public void EncryptFile(string originalFile, string encryptedFile, string keyFile)
-		{
-
-			byte[] originalBytes;
-			using (FileStream fs = new FileStream(originalFile, FileMode.Open))
-			{
-				originalBytes = new byte[fs.Length];
-				fs.Read(originalBytes, 0, originalBytes.Length);
-			}
-
-			byte[] keyBytes = new byte[originalBytes.Length];
-			Random random = new Random();
-			random.NextBytes(keyBytes);
-
-			using (FileStream fs = new FileStream(keyFile, FileMode.Create))
-			{
-				fs.Write(keyBytes, 0, keyBytes.Length);
-			}
-
-			byte[] encryptedBytes = new byte[originalBytes.Length];
-			DoVernam(originalBytes, keyBytes, ref encryptedBytes);
-
-			using (FileStream fs = new FileStream(encryptedFile, FileMode.Create))
-			{
-				fs.Write(encryptedBytes, 0, encryptedBytes.Length);
-			}
-		}
-
-		public void DecryptFile(string encryptedFile, string keyFile, string decryptedFile)
-		{
-			byte[] encryptedBytes;
-			using (FileStream fs = new FileStream(encryptedFile, FileMode.Open))
-			{
-				encryptedBytes = new byte[fs.Length];
-				fs.Read(encryptedBytes, 0, encryptedBytes.Length);
-			}
-
-			byte[] keyBytes;
-			using (FileStream fs = new FileStream(keyFile, FileMode.Open))
-			{
-				keyBytes = new byte[fs.Length];
-				fs.Read(keyBytes, 0, keyBytes.Length);
-			}
-
-			byte[] decryptedBytes = new byte[encryptedBytes.Length];
-			DoVernam(encryptedBytes, keyBytes, ref decryptedBytes);
-
-			using (FileStream fs = new FileStream(decryptedFile, FileMode.Create))
-			{
-				fs.Write(decryptedBytes, 0, decryptedBytes.Length);
-			}
-		}*/
-
 		public void DoVernam(byte[] inBytes, byte[] keyBytes, ref byte[] outBytes)
 		{
-			if ((inBytes.Length != keyBytes.Length) ||
-				(keyBytes.Length != outBytes.Length)) 
-			{
-				Console.WriteLine ("!!!!Bytes in: " + inBytes.Length);
-				Console.WriteLine ("!!!!Key bytes: " + keyBytes.Length);
-				Console.WriteLine ("!!!!Bytes out: " + inBytes.Length);
+			//ensure message and key are equal in size
+			if (inBytes.Length > keyBytes.Length) { 
+				List<byte> newKey = new List<byte> ();
+
+				double factor = inBytes.Length / keyBytes.Length;
+				int repeats = ((int)factor) + 1;
+
+				for (int k = 0; k < repeats; k++) {
+					foreach (byte j in keyBytes) {
+						newKey.Add (j);
+					}
+					Console.WriteLine ("plaintextlength: " + inBytes.Length + " newKey Length " + newKey.Count);
+				}//newkey must now be equal or longer than plaintextbytes
+
+				while (newKey.Count > inBytes.Length) {
+					int lastByte = newKey.Count - 1;
+					newKey.RemoveAt (lastByte);
+				}
+				keyBytes = newKey.ToArray ();
+
+			} else if (inBytes.Length < keyBytes.Length) { 
+				List<byte> newKey = new List<byte> ();
+
+				foreach (byte k in keyBytes) {
+					newKey.Add (k);
+				}
 
 
-				throw new ArgumentException ("Byte-array are not of same length");
-			}
+				while (newKey.Count > inBytes.Length) {
+					int lastByte = newKey.Count - 1;
+					newKey.RemoveAt (lastByte);
+				}
+				keyBytes = newKey.ToArray ();
+
+			} else {}//key and message are same length
+
+			//do vernam operation
 
 			for (int i = 0; i < inBytes.Length; i++) {
 				outBytes [i] = (byte)(inBytes [i] ^ keyBytes [i]);
-		//		Console.WriteLine (inBytes[i] + " ^ " + keyBytes[i] + ":\t" + outBytes[i]);
-
 			}
 			//Console.WriteLine ();
 		}
