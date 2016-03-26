@@ -317,6 +317,8 @@ public partial class MainWindow
 		}
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+		this.cmb_algorithm.Changed += new global::System.EventHandler (this.OnCmbAlgorithmChanged);
+		this.cmb_mode.Changed += new global::System.EventHandler (this.OnCmbModeChanged);
 		this.btn_Go.Clicked += new global::System.EventHandler (this.OnBtnGoClicked);
 	}
 }

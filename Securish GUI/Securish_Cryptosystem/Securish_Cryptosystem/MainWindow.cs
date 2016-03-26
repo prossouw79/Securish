@@ -13,7 +13,7 @@ public partial class MainWindow: Gtk.Window
 	string plainText, keyText,filePath;
 
 	substitution obj_substitution = new substitution ();
-	transposition obj_transposition = new transposition();
+	//transposition obj_transposition = new transposition();
 	vernam obj_vernam = new vernam ();
 	vigenere obj_vigenere = new vigenere ();
 
@@ -51,10 +51,10 @@ public partial class MainWindow: Gtk.Window
 
 		if (!inputReady) 
 			MessageBox.Show ("Please check input file or text!");
-
+		else
 		if (!modeSelected) 
 			MessageBox.Show ("Please select an algorithm and mode!");
-
+		else
 		if (!keyProvided) 
 			MessageBox.Show ("Please provide an encryption/decryption key!");
 

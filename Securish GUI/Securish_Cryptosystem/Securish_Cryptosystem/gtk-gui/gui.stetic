@@ -135,6 +135,7 @@
 Vernam
 Transposition
 Vigenere</property>
+                            <signal name="Changed" handler="OnCmbAlgorithmChanged" />
                           </widget>
                         </child>
                       </widget>
@@ -173,6 +174,7 @@ Vigenere</property>
                             <property name="IsTextCombo">True</property>
                             <property name="Items" translatable="yes">Encryption
 Decryption</property>
+                            <signal name="Changed" handler="OnCmbModeChanged" />
                           </widget>
                         </child>
                       </widget>
