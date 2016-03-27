@@ -10,7 +10,7 @@
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="673 548">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="Title" translatable="yes">Securish</property>
     <property name="WindowPosition">CenterOnParent</property>
     <property name="DefaultWidth">800</property>
     <property name="DefaultHeight">600</property>
@@ -137,6 +137,7 @@ Vernam
 Transposition
 Vigenere</property>
                             <property name="Active">0</property>
+                            <signal name="Changed" handler="OnCmbAlgorithmChanged" />
                           </widget>
                         </child>
                       </widget>
@@ -176,6 +177,7 @@ Vigenere</property>
                             <property name="Items" translatable="yes">Encryption
 Decryption</property>
                             <property name="Active">0</property>
+                            <signal name="Changed" handler="OnCmbModeChanged" />
                           </widget>
                         </child>
                       </widget>

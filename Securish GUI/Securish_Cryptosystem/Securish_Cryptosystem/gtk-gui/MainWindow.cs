@@ -42,7 +42,7 @@ public partial class MainWindow
 		global::Stetic.Gui.Initialize (this);
 		// Widget MainWindow
 		this.Name = "MainWindow";
-		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
+		this.Title = global::Mono.Unix.Catalog.GetString ("Securish");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		this.DefaultWidth = 800;
 		this.DefaultHeight = 600;
@@ -321,6 +321,8 @@ public partial class MainWindow
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.btn_file_input.Clicked += new global::System.EventHandler (this.OnBtnFileInputClicked);
+		this.cmb_algorithm.Changed += new global::System.EventHandler (this.OnCmbAlgorithmChanged);
+		this.cmb_mode.Changed += new global::System.EventHandler (this.OnCmbModeChanged);
 		this.btn_Go.Clicked += new global::System.EventHandler (this.OnBtnGoClicked);
 	}
 }

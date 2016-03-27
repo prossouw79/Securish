@@ -73,7 +73,7 @@ public partial class MainWindow: Gtk.Window
 			fileToProcess = this.GetBytes (plainText);
 
 		if (inputReady && modeSelected && keyProvided) {
-
+		
 			if (mode == 0) { //encryption
 				switch (algorithm) {
 				case 0: //substitution encryption
@@ -134,7 +134,7 @@ public partial class MainWindow: Gtk.Window
 						if (filePath != "-") 
 							MessageBox.Show("File encryption/decryption is not possible with this Vigenere implementation, text only.");
 						else
-						{
+						{							
 							ciphertext = vig.DoVigenere(plainText,keyText,true);
 							addToLog ("Ciphertext:\t" + ciphertext);
 						}
@@ -357,5 +357,47 @@ public partial class MainWindow: Gtk.Window
 	protected void OnSpbShiftValueChanged (object sender, EventArgs e)
 	{
 		shiftValue = spb_shift.ValueAsInt;
+	}
+
+	protected void OnCmbAlgorithmChanged (object sender, EventArgs e)
+	{
+	//sub-vernam-trans-vig
+		string msg="---------------------------";
+		switch (cmb_algorithm.Active) {
+		case 0:
+			{
+				msg = "The substitution crypto-algorithm requires:\n"
+						+"\n\t--> Input text or data file"
+						+"\n\t--> Shift Number (Select using spin button)";
+				break;
+			}
+		case 1:
+			{
+				msg = "The vernam crypto-algorithm requires:\n"
+						+"\n\t--> Input text or data file"
+						+"\n\t--> Text key (password)";
+				break;
+			}
+		case 2:
+			{
+				msg = "The transposition crypto-algorithm requires:\n"
+						+"\n\t--> Input text or data file";
+				break;
+			}
+		case 3:
+			{
+				msg = "The vigenere crypto-algorithm requires:\n"
+						+"\n\t--> Input text, data files unsupported"
+						+"\n\t--> Text key (password)"
+						+"\n|NB| => Spaces and non-alphabetic characters will be removed";
+				break;
+			}
+		}
+		MessageBox.Show(msg);
+	}
+
+	protected void OnCmbModeChanged (object sender, EventArgs e)
+	{
+		
 	}
 }

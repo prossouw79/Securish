@@ -14,18 +14,28 @@ namespace crypto
         
             int pwi = 0, tmp;
             string ns = "";
-            txt = txt.ToUpper();
-            pw = pw.ToUpper();
+            txt = prepareText(txt);
+            pw = prepareText(pw);
             foreach (char t in txt)
             {
                 if (t < 65) continue;
                 tmp = t - 65 + d * (pw[pwi] - 65);
                 if (tmp < 0) tmp += 26;
-                ns += Convert.ToChar(65 + ( tmp % 26) );
+                ns += Convert.ToChar(65 + (tmp % 26));
                 if (++pwi == pw.Length) pwi = 0;
             }
             return ns;
         }
+        
+        private string prepareText (string text)
+		{
+        	string tmp = text.ToUpper();
+        	
+        	char[] arr = tmp.ToCharArray();
+			arr = Array.FindAll<char>(arr, (c => (char.IsLetter(c))));                             
+			tmp = new string(arr);
+        	return tmp;
+		}
     }
 }
 
