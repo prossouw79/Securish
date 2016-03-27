@@ -1,5 +1,6 @@
 using System;
 using Gtk;
+using crypto;
 
 namespace Securish_Cryptosystem
 {
@@ -10,7 +11,7 @@ namespace Securish_Cryptosystem
 			Application.Init ();
 			MainWindow win = new MainWindow ();
 			win.Show ();
-			Application.Run ();
+			Application.Run ();		
 		}
 	}
 }

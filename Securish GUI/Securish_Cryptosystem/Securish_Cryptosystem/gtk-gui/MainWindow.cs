@@ -150,6 +150,7 @@ public partial class MainWindow
 		this.cmb_algorithm.AppendText (global::Mono.Unix.Catalog.GetString ("Transposition"));
 		this.cmb_algorithm.AppendText (global::Mono.Unix.Catalog.GetString ("Vigenere"));
 		this.cmb_algorithm.Name = "cmb_algorithm";
+		this.cmb_algorithm.Active = 0;
 		this.GtkAlignment3.Add (this.cmb_algorithm);
 		this.frame1.Add (this.GtkAlignment3);
 		this.GtkLabel3 = new global::Gtk.Label ();
@@ -175,6 +176,7 @@ public partial class MainWindow
 		this.cmb_mode.AppendText (global::Mono.Unix.Catalog.GetString ("Encryption"));
 		this.cmb_mode.AppendText (global::Mono.Unix.Catalog.GetString ("Decryption"));
 		this.cmb_mode.Name = "cmb_mode";
+		this.cmb_mode.Active = 0;
 		this.GtkAlignment4.Add (this.cmb_mode);
 		this.frame2.Add (this.GtkAlignment4);
 		this.GtkLabel4 = new global::Gtk.Label ();
@@ -233,6 +235,7 @@ public partial class MainWindow
 		this.spb_shift.Adjustment.PageIncrement = 10;
 		this.spb_shift.ClimbRate = 1;
 		this.spb_shift.Numeric = true;
+		this.spb_shift.Value = 1;
 		this.hbox12.Add (this.spb_shift);
 		global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox12 [this.spb_shift]));
 		w25.Position = 3;
@@ -317,8 +320,7 @@ public partial class MainWindow
 		}
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-		this.cmb_algorithm.Changed += new global::System.EventHandler (this.OnCmbAlgorithmChanged);
-		this.cmb_mode.Changed += new global::System.EventHandler (this.OnCmbModeChanged);
+		this.btn_file_input.Clicked += new global::System.EventHandler (this.OnBtnFileInputClicked);
 		this.btn_Go.Clicked += new global::System.EventHandler (this.OnBtnGoClicked);
 	}
 }

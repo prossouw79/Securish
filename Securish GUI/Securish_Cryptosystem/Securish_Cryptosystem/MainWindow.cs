@@ -12,10 +12,11 @@ public partial class MainWindow: Gtk.Window
 	int mode, algorithm,shiftValue;
 	string plainText, keyText,filePath;
 
-	substitution obj_substitution = new substitution ();
-	//transposition obj_transposition = new transposition();
-	vernam obj_vernam = new vernam ();
-	vigenere obj_vigenere = new vigenere ();
+	substitution sub = new substitution ();
+	transposition<byte> trans_data = new transposition<byte>();
+	transposition<char> trans_text = new transposition<char> ();
+	vernam vern = new vernam ();
+	vigenere vig = new vigenere ();
 
 	List<String> modes = new List<string> ();
 	List<String> algorithms = new List<string> ();
@@ -32,6 +33,7 @@ public partial class MainWindow: Gtk.Window
 		filePath = "-";
 		modes.Add ("Encryption");modes.Add("Decryption");
 		algorithms.Add("Substitution");algorithms.Add("Vernam");algorithms.Add("Transposition");algorithms.Add("Vigenere");
+			
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -45,69 +47,97 @@ public partial class MainWindow: Gtk.Window
 		writeState ();
 		/////////check input/////////
 		//input text or file
-		bool inputReady = (plainText != "-" || filePath != "-");
+
+		plainText = txt_plaintext_input.Text;
+		mode = cmb_mode.Active;
+		algorithm = cmb_algorithm.Active;
+		keyText = txt_keytext_input.Text;
+		shiftValue = spb_shift.ValueAsInt;
+
+
+		bool inputReady = (plainText != "" || filePath != "-");
 		bool modeSelected = (mode != -1 || algorithm != -1); 
 		bool keyProvided = (keyText != "-" || algorithm == 0); //key not needed for substitution
 
 		if (!inputReady) 
 			MessageBox.Show ("Please check input file or text!");
-		else
-		if (!modeSelected) 
+		else if (!modeSelected) 
 			MessageBox.Show ("Please select an algorithm and mode!");
-		else
-		if (!keyProvided) 
+		else if (!keyProvided) 
 			MessageBox.Show ("Please provide an encryption/decryption key!");
 
-		byte[] fileToProcess = new byte[5];
+		byte[] fileToProcess = new byte[5];//dummy arr
 		if (filePath != "-")
 			fileToProcess = this.readFileToByteArr (filePath);
 		else
 			fileToProcess = this.GetBytes (plainText);
 
-
-
 		if (inputReady && modeSelected && keyProvided) {
 
-			if (mode == 0) //encryption
-			{
+			if (mode == 0) { //encryption
 				switch (algorithm) {
-					case 0: //substitution encryption
+				case 0: //substitution encryption
 					{
 						//addToLog ("substitution encryption NOT IMPLEMENTED");
 						string outputText = "";
 						byte[] outputBytes = fileToProcess;
-						if (filePath == "-")
-						{
-							outputText = obj_substitution.DoSubstitutionText (plainText, shiftValue, true);
+						if (filePath == "-") {
+							outputText = sub.DoSubstitutionText (plainText, shiftValue, true);
 							addToLog ("Ciphertext:\t" + outputText);
-						} 
-						else 
-						{
-							obj_substitution.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, true);
-							writeByteArrToFile(outputBytes,filePath+"_enc");
-							addToLog("Encrypted file written to "+filePath+"_enc");
+						} else {
+							sub.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, true);
+							writeByteArrToFile (outputBytes, filePath + "_enc");
+							addToLog ("Encrypted file written to " + filePath + "_enc");
 						}
 
-					break;
+						break;
 					}
-					case 1: //vernam encryption
+				case 1: //vernam encryption
 					{
 						//addToLog ("vernam encryption NOT IMPLEMENTED");
+						
+						string outputText = "";
 						byte[] outputBytes = fileToProcess;
-						if (filePath == "-")
+
+						if (filePath == "-") {
+							vern.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
+							outputText = GetString (outputBytes);
+							addToLog ("Ciphertext:\t" + outputText);
+						} else {
+							vern.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
+							writeByteArrToFile (outputBytes, filePath + "_enc");
+							addToLog ("Encrypted file written to " + filePath + "_enc");
+						}
+						break;
+					}
+				case 2: //transposition encryption
+					{
+						//addToLog ("transposition encryption NOT IMPLEMENTED");
+
+						string outputText = "";
+						byte[] outputBytes = fileToProcess;
+
+						if (filePath == "-") {
+							outputText = GetString (trans_text.doTransposition (plainText.ToCharArray (), true));
+							addToLog ("Ciphertext:\t" + outputText);
+						} else {
+							outputBytes = trans_data.doTransposition (fileToProcess, true);
+							writeByteArrToFile (outputBytes, filePath + "_enc");
+							addToLog ("Encrypted file written to " + filePath + "_enc");
+						}
+						break;
+					}
+				case 3: //vigenere encryption
+					{
+						//addToLog ("vigenere encryption NOT IMPLEMENTED");
+						string ciphertext;
+						if (filePath != "-") 
+							MessageBox.Show("File encryption/decryption is not possible with this Vigenere implementation, text only.");
+						else
 						{
-						//obj_vernam.DoVernam (fileToProcess, GetBytes (keyText), outputBytes);
-					}
-						break;
-					}
-					case 2: //transposition encryption
-					{
-						addToLog ("transposition encryption NOT IMPLEMENTED");
-						break;
-					}
-					case 3: //vigenere encryption
-					{
-						addToLog ("vigenere encryption NOT IMPLEMENTED");
+							ciphertext = vig.DoVigenere(plainText,keyText,true);
+							addToLog ("Ciphertext:\t" + ciphertext);
+						}
 						break;
 					}
 				}
@@ -122,31 +152,73 @@ public partial class MainWindow: Gtk.Window
 					byte[] outputBytes = fileToProcess;
 					if (filePath == "-")
 					{
-						outputText = obj_substitution.DoSubstitutionText (plainText, shiftValue, false);
+						outputText = sub.DoSubstitutionText (plainText, shiftValue, false);
 						addToLog ("Ciphertext:\t" + outputText);
 					} 
 					else 
 					{
-						obj_substitution.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, false);
+						sub.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, false);
 						writeByteArrToFile(outputBytes,filePath+"_dec");
-						addToLog("Encrypted file written to "+filePath+"_dec");
+						addToLog("Decrypted file written to "+filePath+"_dec");
 					}
 
 					break;
 				}
 				case 1: //vernam decryption
 				{
-					addToLog ("vernam decryption NOT IMPLEMENTED");
+					//addToLog ("vernam decryption NOT IMPLEMENTED");
+
+					string outputText = "";
+					byte[] outputBytes = fileToProcess;
+
+					if (filePath == "-")
+					{
+						vern.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
+						outputText = GetString (outputBytes);
+						addToLog ("Original Text:\t" + outputText);
+					} 
+					else 
+					{
+						vern.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
+						writeByteArrToFile(outputBytes,filePath+"_dec");
+						addToLog("Decrypted file written to "+filePath+"_dec");
+					}
+
 					break;
 				}
 				case 2: //transposition decryption
 				{
-					addToLog ("transposition decryption NOT IMPLEMENTED");
+					//addToLog ("transposition decryption NOT IMPLEMENTED");
+					string outputText = "";
+					byte[] outputBytes = fileToProcess;
+					if (filePath == "-")
+					{
+						outputText = GetString( trans_text.doTransposition (plainText.ToCharArray(), false));
+						addToLog ("Ciphertext:\t" + outputText);
+					} 
+					else 
+					{
+						outputBytes = trans_data.doTransposition (fileToProcess, false); 
+						writeByteArrToFile(outputBytes,filePath+"_dec");
+						addToLog("Decrypted file written to "+filePath+"_dec");
+					}
+
+
 					break;
 				}
 				case 3: //vigenere decryption
 				{
-					addToLog ("vigenere decryption NOT IMPLEMENTED");
+					//addToLog ("vigenere decryption NOT IMPLEMENTED");
+					
+					string ciphertext;
+						if (filePath != "-") 
+							MessageBox.Show("File encryption/decryption is not possible with this Vigenere implementation, text only.");
+						else
+						{
+							ciphertext = vig.DoVigenere(plainText,keyText,false);
+							addToLog ("Ciphertext:\t" + ciphertext);
+						}
+					
 					break;
 				}
 				}
@@ -163,29 +235,7 @@ public partial class MainWindow: Gtk.Window
 		filePath = OpenFile ("Select File to Encrypt/Decrypt");
 		addToLog ("Input file:\t" + filePath);
 	}
-
-	protected void OnCmbAlgorithmChanged (object sender, EventArgs e)
-	{
-		algorithm = cmb_algorithm.Active;
-	}
-
-	protected void OnCmbModeChanged (object sender, EventArgs e)
-	{
-		mode = cmb_mode.Active;
-	}
-
-	protected void OnTxtPlaintextInputChanged (object sender, EventArgs e)
-	{
-		plainText = txt_plaintext_input.Text;
-		filePath = "-";
-	}
-
-	protected void OnTxtKeytextInputChanged (object sender, EventArgs e)
-	{
-		keyText = txt_plaintext_input.Text;
-	}
-
-
+	
 	//used functions
 
 	protected void clearLog()
@@ -261,6 +311,17 @@ public partial class MainWindow: Gtk.Window
 		path = filechooser.Filename;
 		filechooser.Destroy();
 		return path;
+	}
+
+	private string GetString(char[] chars)
+	{
+		string msg = "";
+
+		foreach (char c in chars)
+			msg += c.ToString();
+
+		return msg;
+						
 	}
 
 	private byte[] GetBytes(string str)

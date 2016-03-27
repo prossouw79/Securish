@@ -74,6 +74,7 @@
     <Compile Include="vigenere.cs" />
     <Compile Include="substitution.cs" />
     <Compile Include="MessageBox.cs" />
+    <Compile Include="transposition.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

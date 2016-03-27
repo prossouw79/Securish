@@ -9,6 +9,7 @@ namespace crypto
 
 		public substitution ()
 		{
+
 		}
 
 		public void DoSubstitution(byte[] inBytes, ref byte[] outBytes, int value, bool encryption)
@@ -45,8 +46,6 @@ namespace crypto
 			foreach (char c in tmp) {
 				outp += (char) ((int)c + absVal);
 			}
-			
-				
 			return outp;
 		}
 	}

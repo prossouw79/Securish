@@ -87,6 +87,7 @@
                                 <property name="Icon">stock:stock_folder Button</property>
                                 <property name="Label">Open File</property>
                                 <property name="UseUnderline">True</property>
+                                <signal name="Clicked" handler="OnBtnFileInputClicked" />
                               </widget>
                               <packing>
                                 <property name="Position">3</property>
@@ -135,7 +136,7 @@
 Vernam
 Transposition
 Vigenere</property>
-                            <signal name="Changed" handler="OnCmbAlgorithmChanged" />
+                            <property name="Active">0</property>
                           </widget>
                         </child>
                       </widget>
@@ -174,7 +175,7 @@ Vigenere</property>
                             <property name="IsTextCombo">True</property>
                             <property name="Items" translatable="yes">Encryption
 Decryption</property>
-                            <signal name="Changed" handler="OnCmbModeChanged" />
+                            <property name="Active">0</property>
                           </widget>
                         </child>
                       </widget>
@@ -256,6 +257,7 @@ Decryption</property>
                                 <property name="StepIncrement">1</property>
                                 <property name="ClimbRate">1</property>
                                 <property name="Numeric">True</property>
+                                <property name="Value">1</property>
                               </widget>
                               <packing>
                                 <property name="Position">3</property>
