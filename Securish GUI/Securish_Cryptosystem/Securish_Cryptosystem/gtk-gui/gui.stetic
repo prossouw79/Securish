@@ -61,6 +61,7 @@
                                 <property name="CanFocus">True</property>
                                 <property name="IsEditable">True</property>
                                 <property name="InvisibleChar">●</property>
+                                <signal name="Changed" handler="OnTxtPlaintextInputChanged" />
                               </widget>
                               <packing>
                                 <property name="Position">1</property>
@@ -177,7 +178,6 @@ Vigenere</property>
                             <property name="Items" translatable="yes">Encryption
 Decryption</property>
                             <property name="Active">0</property>
-                            <signal name="Changed" handler="OnCmbModeChanged" />
                           </widget>
                         </child>
                       </widget>

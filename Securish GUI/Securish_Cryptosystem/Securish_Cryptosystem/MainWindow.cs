@@ -6,11 +6,11 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
-
 public partial class MainWindow: Gtk.Window
 {	
 	int mode, algorithm,shiftValue;
 	string plainText, keyText,filePath;
+	bool fileMode;
 
 	substitution sub = new substitution ();
 	transposition<byte> trans_data = new transposition<byte>();
@@ -230,7 +230,7 @@ public partial class MainWindow: Gtk.Window
 	protected void OnBtnFileInputClicked (object sender, EventArgs e)
 	{
 		txt_plaintext_input.Text = "";
-		plainText = "-";
+		fileMode = true;	
 		clearLog ();
 		filePath = OpenFile ("Select File to Encrypt/Decrypt");
 		addToLog ("Input file:\t" + filePath);
@@ -396,8 +396,9 @@ public partial class MainWindow: Gtk.Window
 		MessageBox.Show(msg);
 	}
 
-	protected void OnCmbModeChanged (object sender, EventArgs e)
+	protected void OnTxtPlaintextInputChanged (object sender, EventArgs e)
 	{
-		
+		fileMode = false;
+		filePath = "-";
 	}
 }
