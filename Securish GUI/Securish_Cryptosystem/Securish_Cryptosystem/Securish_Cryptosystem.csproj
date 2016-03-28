@@ -75,6 +75,7 @@
     <Compile Include="MessageBox.cs" />
     <Compile Include="transposition.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
+    <Compile Include="CryptoSystem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

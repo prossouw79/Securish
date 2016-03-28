@@ -12,11 +12,15 @@ public partial class MainWindow: Gtk.Window
 	string plainText, keyText,filePath;
 	bool fileMode;
 
+	CryptoSystem<char> crypt_text = new CryptoSystem<char>();
+	CryptoSystem<byte> crypt_data = new CryptoSystem<byte>();
+	
+	/*
 	substitution sub = new substitution ();
 	transposition<byte> trans_data = new transposition<byte>();
 	transposition<char> trans_text = new transposition<char> ();
 	vernam vern = new vernam ();
-	vigenere vig = new vigenere ();
+	vigenere vig = new vigenere ();*/
 
 	List<String> modes = new List<string> ();
 	List<String> algorithms = new List<string> ();
@@ -72,156 +76,148 @@ public partial class MainWindow: Gtk.Window
 		else
 			fileToProcess = this.GetBytes (plainText);
 
+
 		if (inputReady && modeSelected && keyProvided) {
-		
-			if (mode == 0) { //encryption
-				switch (algorithm) {
-				case 0: //substitution encryption
-					{
-						//addToLog ("substitution encryption NOT IMPLEMENTED");
-						string outputText = "";
-						byte[] outputBytes = fileToProcess;
-						if (filePath == "-") {
-							outputText = sub.DoSubstitutionText (plainText, shiftValue, true);
-							addToLog ("Ciphertext:\t" + outputText);
-						} else {
-							sub.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, true);
-							writeByteArrToFile (outputBytes, filePath + "_enc");
-							addToLog ("Encrypted file written to " + filePath + "_enc");
-						}
-
-						break;
-					}
-				case 1: //vernam encryption
-					{
-						//addToLog ("vernam encryption NOT IMPLEMENTED");
-						
-						string outputText = "";
-						byte[] outputBytes = fileToProcess;
-
-						if (filePath == "-") {
-							vern.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
-							outputText = GetString (outputBytes);
-							addToLog ("Ciphertext:\t" + outputText);
-						} else {
-							vern.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
-							writeByteArrToFile (outputBytes, filePath + "_enc");
-							addToLog ("Encrypted file written to " + filePath + "_enc");
-						}
-						break;
-					}
-				case 2: //transposition encryption
-					{
-						//addToLog ("transposition encryption NOT IMPLEMENTED");
-
-						string outputText = "";
-						byte[] outputBytes = fileToProcess;
-
-						if (filePath == "-") {
-							outputText = GetString (trans_text.doTransposition (plainText.ToCharArray (), true));
-							addToLog ("Ciphertext:\t" + outputText);
-						} else {
-							outputBytes = trans_data.doTransposition (fileToProcess, true);
-							writeByteArrToFile (outputBytes, filePath + "_enc");
-							addToLog ("Encrypted file written to " + filePath + "_enc");
-						}
-						break;
-					}
-				case 3: //vigenere encryption
-					{
-						//addToLog ("vigenere encryption NOT IMPLEMENTED");
-						string ciphertext;
-						if (filePath != "-") 
-							MessageBox.Show("File encryption/decryption is not possible with this Vigenere implementation, text only.");
-						else
-						{							
-							ciphertext = vig.DoVigenere(plainText,keyText,true);
-							addToLog ("Ciphertext:\t" + ciphertext);
-						}
-						break;
-					}
-				}
-
-			} else if (mode == 1) //decryption
-			{
-				switch (algorithm) {
-				case 0: //substitution decryption
-				{
-					//addToLog ("substitution decryption NOT IMPLEMENTED");
-					string outputText = "";
-					byte[] outputBytes = fileToProcess;
-					if (filePath == "-")
-					{
-						outputText = sub.DoSubstitutionText (plainText, shiftValue, false);
-						addToLog ("Ciphertext:\t" + outputText);
-					} 
-					else 
-					{
-						sub.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, false);
-						writeByteArrToFile(outputBytes,filePath+"_dec");
-						addToLog("Decrypted file written to "+filePath+"_dec");
-					}
-
-					break;
-				}
-				case 1: //vernam decryption
-				{
-					//addToLog ("vernam decryption NOT IMPLEMENTED");
-
-					string outputText = "";
-					byte[] outputBytes = fileToProcess;
-
-					if (filePath == "-")
-					{
-						vern.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
-						outputText = GetString (outputBytes);
-						addToLog ("Original Text:\t" + outputText);
-					} 
-					else 
-					{
-						vern.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
-						writeByteArrToFile(outputBytes,filePath+"_dec");
-						addToLog("Decrypted file written to "+filePath+"_dec");
-					}
-
-					break;
-				}
-				case 2: //transposition decryption
-				{
-					//addToLog ("transposition decryption NOT IMPLEMENTED");
-					string outputText = "";
-					byte[] outputBytes = fileToProcess;
-					if (filePath == "-")
-					{
-						outputText = GetString( trans_text.doTransposition (plainText.ToCharArray(), false));
-						addToLog ("Ciphertext:\t" + outputText);
-					} 
-					else 
-					{
-						outputBytes = trans_data.doTransposition (fileToProcess, false); 
-						writeByteArrToFile(outputBytes,filePath+"_dec");
-						addToLog("Decrypted file written to "+filePath+"_dec");
-					}
-
-
-					break;
-				}
-				case 3: //vigenere decryption
-				{
-					//addToLog ("vigenere decryption NOT IMPLEMENTED");
-					
-					string ciphertext;
-						if (filePath != "-") 
-							MessageBox.Show("File encryption/decryption is not possible with this Vigenere implementation, text only.");
-						else
+			try {
+				if (mode == 0) { //encryption
+					switch (algorithm) {
+					case 0: //substitution encryption
 						{
-							ciphertext = vig.DoVigenere(plainText,keyText,false);
-							addToLog ("Ciphertext:\t" + ciphertext);
+							//addToLog ("substitution encryption NOT IMPLEMENTED");
+							string outputText = "";
+							byte[] outputBytes = fileToProcess;
+							if (filePath == "-") {
+								outputText = crypt_text.DoSubstitutionText (plainText, shiftValue, true);
+								addToLog ("Ciphertext:\t" + outputText);
+							} else {
+								crypt_data.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, true);
+								writeByteArrToFile (outputBytes, filePath + "_enc");
+								addToLog ("Encrypted file written to " + filePath + "_enc");
+							}
+
+							break;
 						}
+					case 1: //vernam encryption
+						{
+							//addToLog ("vernam encryption NOT IMPLEMENTED");
+						
+							string outputText = "";
+							byte[] outputBytes = fileToProcess;
+
+							if (filePath == "-") {
+								crypt_text.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
+								outputText = GetString (outputBytes);
+								addToLog ("Ciphertext:\t" + outputText);
+							} else {
+								crypt_data.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
+								writeByteArrToFile (outputBytes, filePath + "_enc");
+								addToLog ("Encrypted file written to " + filePath + "_enc");
+							}
+							break;
+						}
+					case 2: //transposition encryption
+						{
+							//addToLog ("transposition encryption NOT IMPLEMENTED");
+
+							string outputText = "";
+							byte[] outputBytes = fileToProcess;
+
+							if (filePath == "-") {
+								outputText = GetString (crypt_text.doTransposition (plainText.ToCharArray (), true));
+								addToLog ("Ciphertext:\t" + outputText);
+							} else {
+								outputBytes = crypt_data.doTransposition (fileToProcess, true);
+								writeByteArrToFile (outputBytes, filePath + "_enc");
+								addToLog ("Encrypted file written to " + filePath + "_enc");
+							}
+							break;
+						}
+					case 3: //vigenere encryption
+						{
+							//addToLog ("vigenere encryption NOT IMPLEMENTED");
+							string ciphertext;
+							if (filePath != "-") 
+								MessageBox.Show ("File encryption/decryption is not possible with this Vigenere implementation, text only.");
+							else {							
+								ciphertext = crypt_text.DoVigenere (plainText, keyText, true);
+								addToLog ("Ciphertext:\t" + ciphertext);
+							}
+							break;
+						}
+					}
+
+				} else if (mode == 1) { //decryption
+					switch (algorithm) {
+					case 0: //substitution decryption
+						{
+							//addToLog ("substitution decryption NOT IMPLEMENTED");
+							string outputText = "";
+							byte[] outputBytes = fileToProcess;
+							if (filePath == "-") {
+								outputText = crypt_text.DoSubstitutionText (plainText, shiftValue, false);
+								addToLog ("Ciphertext:\t" + outputText);
+							} else {
+								crypt_data.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, false);
+								writeByteArrToFile (outputBytes, filePath + "_dec");
+								addToLog ("Decrypted file written to " + filePath + "_dec");
+							}
+
+							break;
+						}
+					case 1: //vernam decryption
+						{
+							//addToLog ("vernam decryption NOT IMPLEMENTED");
+
+							string outputText = "";
+							byte[] outputBytes = fileToProcess;
+
+							if (filePath == "-") {
+								crypt_text.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
+								outputText = GetString (outputBytes);
+								addToLog ("Original Text:\t" + outputText);
+							} else {
+								crypt_data.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
+								writeByteArrToFile (outputBytes, filePath + "_dec");
+								addToLog ("Decrypted file written to " + filePath + "_dec");
+							}
+
+							break;
+						}
+					case 2: //transposition decryption
+						{
+							//addToLog ("transposition decryption NOT IMPLEMENTED");
+							string outputText = "";
+							byte[] outputBytes = fileToProcess;
+							if (filePath == "-") {
+								outputText = GetString (crypt_text.doTransposition (plainText.ToCharArray (), false));
+								addToLog ("Ciphertext:\t" + outputText);
+							} else {
+								outputBytes = crypt_data.doTransposition (fileToProcess, false); 
+								writeByteArrToFile (outputBytes, filePath + "_dec");
+								addToLog ("Decrypted file written to " + filePath + "_dec");
+							}
+
+
+							break;
+						}
+					case 3: //vigenere decryption
+						{
+							//addToLog ("vigenere decryption NOT IMPLEMENTED");
 					
-					break;
+							string ciphertext;
+							if (filePath != "-") 
+								MessageBox.Show ("File encryption/decryption is not possible with this Vigenere implementation, text only.");
+							else {
+								ciphertext = crypt_text.DoVigenere (plainText, keyText, false);
+								addToLog ("Ciphertext:\t" + ciphertext);
+							}
+					
+							break;
+						}
+					}
 				}
-				}
+			} catch (Exception ex) {
+				MessageBox.Show("Please check input and needs of chosen algorithm before continuing");
 			}
 		}
 	}
