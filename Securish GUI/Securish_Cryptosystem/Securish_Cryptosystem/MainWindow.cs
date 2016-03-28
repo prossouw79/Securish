@@ -1,6 +1,5 @@
 using System;
 using Gtk;
-using crypto;
 using Securish_Cryptosystem;
 using System.IO;
 using System.Collections.Generic;

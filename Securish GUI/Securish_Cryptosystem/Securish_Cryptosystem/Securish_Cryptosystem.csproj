@@ -69,11 +69,7 @@
     <Compile Include="MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="vernam.cs" />
-    <Compile Include="vigenere.cs" />
-    <Compile Include="substitution.cs" />
     <Compile Include="MessageBox.cs" />
-    <Compile Include="transposition.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="CryptoSystem.cs" />
   </ItemGroup>
