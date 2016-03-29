@@ -5,7 +5,7 @@ namespace Securish_Cryptosystem
 {
 	public class MessageBox
 	{
-		public static void Show(string Msg)
+		public static void ShowMessage(string Msg)
 		{
 			MessageDialog md = new MessageDialog (null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, Msg);
 			md.Run ();

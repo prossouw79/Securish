@@ -63,11 +63,11 @@ public partial class MainWindow: Gtk.Window
 		bool keyProvided = (keyText != "-" || algorithm == 0); //key not needed for substitution
 
 		if (!inputReady) 
-			MessageBox.Show ("Please check input file or text!");
+			MessageBox.ShowMessage ("Please check input file or text!");
 		else if (!modeSelected) 
-			MessageBox.Show ("Please select an algorithm and mode!");
+			MessageBox.ShowMessage ("Please select an algorithm and mode!");
 		else if (!keyProvided) 
-			MessageBox.Show ("Please provide an encryption/decryption key!");
+			MessageBox.ShowMessage ("Please provide an encryption/decryption key!");
 
 		byte[] fileToProcess = new byte[5];//dummy arr
 		if (filePath != "-")
@@ -136,7 +136,7 @@ public partial class MainWindow: Gtk.Window
 							//addToLog ("vigenere encryption NOT IMPLEMENTED");
 							string ciphertext;
 							if (filePath != "-") 
-								MessageBox.Show ("File encryption/decryption is not possible with this Vigenere implementation, text only.");
+								MessageBox.ShowMessage ("File encryption/decryption is not possible with this Vigenere implementation, text only.");
 							else {							
 								ciphertext = crypt_text.DoVigenere (plainText, keyText, true);
 								addToLog ("Ciphertext:\t" + ciphertext);
@@ -205,7 +205,7 @@ public partial class MainWindow: Gtk.Window
 					
 							string ciphertext;
 							if (filePath != "-") 
-								MessageBox.Show ("File encryption/decryption is not possible with this Vigenere implementation, text only.");
+								MessageBox.ShowMessage ("File encryption/decryption is not possible with this Vigenere implementation, text only.");
 							else {
 								ciphertext = crypt_text.DoVigenere (plainText, keyText, false);
 								addToLog ("Ciphertext:\t" + ciphertext);
@@ -216,7 +216,7 @@ public partial class MainWindow: Gtk.Window
 					}
 				}
 			} catch (Exception ex) {
-				MessageBox.Show("Please check input and needs of chosen algorithm before continuing");
+				MessageBox.ShowMessage("Please check input and needs of chosen algorithm before continuing");
 			}
 		}
 	}
@@ -263,7 +263,7 @@ public partial class MainWindow: Gtk.Window
 		}
 		catch(Exception ex)
 		{
-			MessageBox.Show (ex.Message);
+			MessageBox.ShowMessage (ex.Message);
 			clearLog ();
 		}
 
@@ -388,7 +388,7 @@ public partial class MainWindow: Gtk.Window
 				break;
 			}
 		}
-		MessageBox.Show(msg);
+		MessageBox.ShowMessage(msg);
 	}
 
 	protected void OnTxtPlaintextInputChanged (object sender, EventArgs e)
