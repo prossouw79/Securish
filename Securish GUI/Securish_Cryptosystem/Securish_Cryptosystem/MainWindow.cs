@@ -25,10 +25,24 @@ public partial class MainWindow: Gtk.Window
 	List<String> algorithms = new List<string> ();
 
 
+	string instructionStart,instr_vernam,instr_substitution,instr_vigenere,instr_transposition,instructionEnd;
+
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
 		//initialization
+
+		instructionStart = 	"-> Firstly, provide input, either by selecting a file or input text in the provided box.\n" +
+							"-> Secondly, choose your encryption algorithm and mode using the provided comboboxes.\n" +
+							"-> Finally, provide and encryption key (password) or numeric shift value number\n\n";
+
+		instr_substitution = "X> Provide input text or file and select a shift value to use for encryption/decryption.\n";
+		instr_vigenere = "X> Provide input TEXT ONLY (files unsupported) as well as an encryption key for encryption/decryption\n";
+		instr_transposition = "X> Provide input text or file, no key or shift value is needed for encryption/decryption.\n";
+		instr_vernam = "X> Provide input text or file as well as an encryption key for encryption/decryption.\n";
+
+		instructionEnd = "Press the 'Go!' Button\n";
+
 		mode = -1;
 		algorithm = -1;
 		plainText = "-";
@@ -87,7 +101,7 @@ public partial class MainWindow: Gtk.Window
 							byte[] outputBytes = fileToProcess;
 							if (filePath == "-") {
 								outputText = crypt_text.DoSubstitutionText (plainText, shiftValue, true);
-								addToLog ("Ciphertext:\t" + outputText);
+								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							} else {
 								crypt_data.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, true);
 								writeByteArrToFile (outputBytes, filePath + "_enc");
@@ -106,7 +120,7 @@ public partial class MainWindow: Gtk.Window
 							if (filePath == "-") {
 								crypt_text.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
 								outputText = GetString (outputBytes);
-								addToLog ("Ciphertext:\t" + outputText);
+								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							} else {
 								crypt_data.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
 								writeByteArrToFile (outputBytes, filePath + "_enc");
@@ -123,7 +137,7 @@ public partial class MainWindow: Gtk.Window
 
 							if (filePath == "-") {
 								outputText = GetString (crypt_text.doTransposition (plainText.ToCharArray (), true));
-								addToLog ("Ciphertext:\t" + outputText);
+								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							} else {
 								outputBytes = crypt_data.doTransposition (fileToProcess, true);
 								writeByteArrToFile (outputBytes, filePath + "_enc");
@@ -134,12 +148,12 @@ public partial class MainWindow: Gtk.Window
 					case 3: //vigenere encryption
 						{
 							//addToLog ("vigenere encryption NOT IMPLEMENTED");
-							string ciphertext;
+							string outputText;
 							if (filePath != "-") 
 								MessageBox.ShowMessage ("File encryption/decryption is not possible with this Vigenere implementation, text only.");
 							else {							
-								ciphertext = crypt_text.DoVigenere (plainText, keyText, true);
-								addToLog ("Ciphertext:\t" + ciphertext);
+								outputText = crypt_text.DoVigenere (plainText, keyText, true);
+								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							}
 							break;
 						}
@@ -154,7 +168,7 @@ public partial class MainWindow: Gtk.Window
 							byte[] outputBytes = fileToProcess;
 							if (filePath == "-") {
 								outputText = crypt_text.DoSubstitutionText (plainText, shiftValue, false);
-								addToLog ("Ciphertext:\t" + outputText);
+								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							} else {
 								crypt_data.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, false);
 								writeByteArrToFile (outputBytes, filePath + "_dec");
@@ -189,7 +203,7 @@ public partial class MainWindow: Gtk.Window
 							byte[] outputBytes = fileToProcess;
 							if (filePath == "-") {
 								outputText = GetString (crypt_text.doTransposition (plainText.ToCharArray (), false));
-								addToLog ("Ciphertext:\t" + outputText);
+								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							} else {
 								outputBytes = crypt_data.doTransposition (fileToProcess, false); 
 								writeByteArrToFile (outputBytes, filePath + "_dec");
@@ -203,12 +217,12 @@ public partial class MainWindow: Gtk.Window
 						{
 							//addToLog ("vigenere decryption NOT IMPLEMENTED");
 					
-							string ciphertext;
+							string outputText;
 							if (filePath != "-") 
 								MessageBox.ShowMessage ("File encryption/decryption is not possible with this Vigenere implementation, text only.");
 							else {
-								ciphertext = crypt_text.DoVigenere (plainText, keyText, false);
-								addToLog ("Ciphertext:\t" + ciphertext);
+								outputText = crypt_text.DoVigenere (plainText, keyText, false);
+								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							}
 					
 							break;
@@ -356,39 +370,32 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnCmbAlgorithmChanged (object sender, EventArgs e)
 	{
-	//sub-vernam-trans-vig
-		string msg="---------------------------";
+		txt_instruction.Buffer.Clear ();
+		txt_instruction.Buffer.Text = instructionStart; 
+
 		switch (cmb_algorithm.Active) {
 		case 0:
 			{
-				msg = "The substitution crypto-algorithm requires:\n"
-						+"\n\t--> Input text or data file"
-						+"\n\t--> Shift Number (Select using spin button)";
+				txt_instruction.Buffer.Text += instr_substitution; 
 				break;
 			}
 		case 1:
 			{
-				msg = "The vernam crypto-algorithm requires:\n"
-						+"\n\t--> Input text or data file"
-						+"\n\t--> Text key (password)";
+				txt_instruction.Buffer.Text += instr_vernam; 
 				break;
 			}
 		case 2:
 			{
-				msg = "The transposition crypto-algorithm requires:\n"
-						+"\n\t--> Input text or data file";
+				txt_instruction.Buffer.Text += instr_transposition; 
 				break;
 			}
 		case 3:
 			{
-				msg = "The vigenere crypto-algorithm requires:\n"
-						+"\n\t--> Input text, data files unsupported"
-						+"\n\t--> Text key (password)"
-						+"\n|NB| => Spaces and non-alphabetic characters will be removed";
+				txt_instruction.Buffer.Text += instr_vigenere; 
 				break;
 			}
 		}
-		MessageBox.ShowMessage(msg);
+		txt_instruction.Buffer.Text += instructionEnd; 
 	}
 
 	protected void OnTxtPlaintextInputChanged (object sender, EventArgs e)
