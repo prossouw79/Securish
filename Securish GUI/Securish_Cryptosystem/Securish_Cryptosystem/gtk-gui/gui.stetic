@@ -85,7 +85,7 @@
                                 <property name="MemberName" />
                                 <property name="CanFocus">True</property>
                                 <property name="Type">TextAndIcon</property>
-                                <property name="Icon">stock:stock_folder Button</property>
+                                <property name="Icon">stock:gtk-add Menu</property>
                                 <property name="Label">Open File</property>
                                 <property name="UseUnderline">True</property>
                                 <signal name="Clicked" handler="OnBtnFileInputClicked" />
@@ -295,7 +295,7 @@ Decryption</property>
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
-                    <property name="Icon">stock:gtk-media-play Menu</property>
+                    <property name="Icon">stock:gtk-apply Menu</property>
                     <property name="Label" translatable="yes">Go!</property>
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnBtnGoClicked" />
