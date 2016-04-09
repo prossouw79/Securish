@@ -76,6 +76,32 @@ public class Crypto {
         return data;
     }
 
+    public String DoVigenere(String txt, String pw, boolean enc)
+    {
+        int d;
+        if (enc)
+            d = 1;
+        else
+            d = -1;
+
+        int pwi = 0, tmp;
+        String ns = "";
+        txt = prepareText(txt);
+        pw = prepareText(pw);
+
+        char[] strArr = txt.toCharArray();
+
+        for (char t: strArr) {
+            if (t < 65) continue;
+            tmp = t - 65 + d * (pw.charAt(pwi) - 65);
+            if (tmp < 0) tmp += 26;
+            ns += (char) (65 + (tmp % 26));
+            if (++pwi == pw.length()) pwi = 0;
+        }
+
+        return ns;
+    }
+
     private char[] Dec(char[] data, int key)
     {
         int size = data.length;
@@ -90,21 +116,6 @@ public class Crypto {
         return data;
     }
 
-    public String DoVigenere(String txt, String pw, boolean enc)
-    {
-        String text = txt.replaceAll("[^a-zA-Z]", "");
-
-        Vigenere vig = new Vigenere(pw,txt);
-
-        if (enc)
-        {
-            return vig.encrypt();
-        }
-        else
-        {
-            return vig.decrypt();
-        }
-    }
 
     public List<Character> asList(final String string) {
         return new AbstractList<Character>() {
@@ -133,6 +144,14 @@ public class Crypto {
         }
         return msg;
 
+    }
+
+    private String prepareText (String text)
+    {
+        String tmp = text.toUpperCase().replaceAll("[^A-Z]","");
+        char[] arr = tmp.toCharArray();
+        tmp = new String(arr);
+        return tmp;
     }
 
 }
