@@ -93,10 +93,8 @@ public class Crypto {
     public String DoVigenere(String txt, String pw, boolean enc)
     {
         String text = txt.replaceAll("[^a-zA-Z]", "");
+
         Vigenere vig = new Vigenere(pw,txt);
-
-        if()
-
 
         if (enc)
         {

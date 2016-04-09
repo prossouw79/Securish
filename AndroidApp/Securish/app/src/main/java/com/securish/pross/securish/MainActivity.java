@@ -1,5 +1,7 @@
 package com.securish.pross.securish;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,31 +22,36 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     String algorithm = "VERNAM";
-    String cipherText = "";
-
+    String enc_cipherText = "";
+    String dec_plainText = "";
+    boolean encrypt = false;
+    boolean modeChosen = false;
+    ClipboardManager clipboard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(cipherText != "")
+                if(enc_cipherText != "")
                 {
                     Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
                     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "You received some encrypted text! Secured by Securish!");
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Encrypted text:    " + cipherText);
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Encrypted text:    " + enc_cipherText);
                     startActivity(Intent.createChooser(sharingIntent, "Share via:"));
 
                 }
             }
         });
-
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -100,40 +108,79 @@ public class MainActivity extends AppCompatActivity {
         TextView txtKey = (TextView) findViewById(R.id.txt_key);
         Crypto crypt = new Crypto();
 
+
         String plaintext = txtIn.getText().toString();
         String keytext = txtKey.getText().toString();
         String result = "";
 
         char[] text = plaintext.toCharArray();
         char[] key = keytext.toCharArray();
-        try {
-            switch (algorithm) {
-                case "VIGENERE": {
-                    result = crypt.DoVigenere(plaintext, keytext, true);
-                    makeSnackbar("RESULT:\t" + result);
-                    txtOut.setText("Result is:  " + result + "\n\n Use Envelope Button to share this ciphertext!");
-                    cipherText = result;
-                    break;
+
+
+        if(!modeChosen)
+            makeSnackbar("Please select mode!");
+        else {
+                if (plaintext.length() == 0 || keytext.length() == 0) {
+                    makeSnackbar("Please provide input!");
+                } else {
+                    try {
+                    switch (algorithm) {
+                        case "VIGENERE": {
+                            if (encrypt) {
+                                result = crypt.DoVigenere(plaintext, keytext, true);
+                                makeSnackbar("RESULT:\t" + result);
+                                txtOut.setText("ENCRYPTED:  " + result + "\n\n Use Envelope Button to share!");
+                                enc_cipherText = result;
+                            } else {
+                                result = crypt.DoVigenere(plaintext, keytext, false);
+                                makeSnackbar("RESULT:\t" + result);
+                                txtOut.setText("DECRYPTED:  " + result + "\n\n Use Envelope Button to share!");
+                                dec_plainText = result;
+                            }
+                            break;
+                        }
+                        case "SUBSTITUTION": {
+                            if (encrypt) {
+                                result = crypt.DoSubstitutionText(plaintext, 5, true);
+                                makeSnackbar("RESULT:\t" + result);
+                                txtOut.setText("Result is:  " + result + "\n\n Use Envelope Button to share!");
+                                enc_cipherText = result;
+                            } else {
+                                result = crypt.DoSubstitutionText(plaintext, 5, false);
+                                makeSnackbar("RESULT:\t" + result);
+                                txtOut.setText("Result is:  " + result + "\n\n Use Envelope Button to share!");
+                                dec_plainText = result;
+                            }
+                            break;
+                        }
+                        case "TRANSPOSITION": {
+                            if (encrypt) {
+                                result = crypt.doTransposition(text, true);
+                                makeSnackbar("RESULT:\t" + result);
+                                txtOut.setText("Result is:  " + result + "\n\n Use Envelope Button to share!");
+                                enc_cipherText = result;
+                            } else {
+                                result = crypt.doTransposition(text, false);
+                                makeSnackbar("RESULT:\t" + result);
+                                txtOut.setText("Result is:  " + result + "\n\n Use Envelope Button to share!");
+                                dec_plainText = result;
+                            }
+                            break;
+                        }
+
+                    }
                 }
-                case "SUBSTITUTION": {
-                    result = crypt.DoSubstitutionText(plaintext, 5, true);
-                    makeSnackbar("RESULT:\t" + result);
-                    txtOut.setText("Result is:  " + result + "\n\n Use Envelope Button to share this ciphertext!");
-                    cipherText = result;
-                    break;
+                    catch(Exception e){
+                        txtOut.setText(e.getMessage());
+                    }
+
                 }
-                case "TRANSPOSITION": {
-                    result = crypt.doTransposition(text, true);
-                    makeSnackbar("RESULT:\t" + result);
-                    txtOut.setText("Result is:  " + result + "\n\n Use Envelope Button to share this ciphertext!");
-                    cipherText = result;
-                    break;
-                }
+            if (encrypt)
+                addToClipboard(enc_cipherText);
+            else
+                addToClipboard(dec_plainText);
             }
-        }catch (Exception e) {
-            txtOut.setText(e.getMessage());
         }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -158,6 +205,31 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(findViewById(android.R.id.content), shortmsg, Snackbar.LENGTH_LONG)
                 .show();
 
+    }
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_encrypt:
+                if (checked)
+                    encrypt = true;
+                   // makeSnackbar("ENCRYPT");
+                    break;
+            case R.id.radio_decrypt:
+                if (checked)
+                    encrypt = false;
+                   // makeSnackbar("DECRYPT");
+                    break;
+        }
+        modeChosen = true;
+    }
+
+    private void addToClipboard(String txt)
+    {
+        ClipData clip = ClipData.newPlainText("Securish text",txt);
+        clipboard.setPrimaryClip(clip);
     }
 
 

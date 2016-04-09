@@ -68,14 +68,32 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
 
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentStart="true">
+        <RadioButton android:id="@+id/radio_encrypt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Encrypt"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_decrypt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Decrypt"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Go!"
         android:id="@+id/btn_go"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="63dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,7 +102,7 @@
         android:id="@+id/txt_output"
         android:layout_below="@+id/btn_go"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_marginTop="44dp"
+        android:layout_alignEnd="@+id/spinner" />
 
 </RelativeLayout>
