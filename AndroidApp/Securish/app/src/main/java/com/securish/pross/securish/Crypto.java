@@ -1,23 +1,23 @@
 package com.securish.pross.securish;
 
+import android.util.Log;
+
+import java.io.Console;
 import java.lang.reflect.Array;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.ConsoleHandler;
 
 
 /**
  * Created by pross on 4/8/2016.
  */
-public class Crypto<T> {
+public class Crypto {
 
-    String inputText = "";
-
-    public Crypto(String input)
-    {
-        this.inputText = input;
-    }
+    boolean charsIsPrime;
+    int key = 1994;
 
 
     public String DoSubstitutionText(String input, int value, boolean encryption)
@@ -38,18 +38,15 @@ public class Crypto<T> {
         return outp;
     }
 
-    boolean charsIsPrime;
-    int key = 1994;
-
-    public T[] doTransposition(T[] data, boolean encryption)
+    public String doTransposition(char[] data, boolean encryption)
     {
-        T[] tmp;
+        char[] tmp;
         if (encryption)
             tmp = Enc (data, key);
         else
             tmp = Dec (data, key);
 
-        return tmp;
+        return charsToString(tmp);
 
     }
 
@@ -65,108 +62,49 @@ public class Crypto<T> {
         return exchanges;
     }
 
-    private T[] Enc(T[] data, int key)
+    private char[] Enc(char[] data, int key)
     {
         int size = data.length;
         int[] ex = GetExchanges(size, key);
         for (int i = size - 1; i > 0; i--)
         {
             int n = ex[size - 1 - i];
-            T tmp = data[i];
+            char tmp = data[i];
             data[i] = data[n];
             data[n] = tmp;
         }
         return data;
     }
 
-    private T[] Dec(T[] data, int key)
+    private char[] Dec(char[] data, int key)
     {
         int size = data.length;
         int[] ex = GetExchanges(size, key);
         for (int i = 1; i < size; i++)
         {
             int n = ex[size - i - 1];
-            T tmp = data[i];
+            char tmp = data[i];
             data[i] = data[n];
             data[n] = tmp;
         }
         return data;
     }
 
-    public char[] DoVernam(char[] inChar, char[] keyChar, char[] out)
-    {
-        out = inChar;
-        //ensure message and key are equal in size
-        if (inChar.length > inChar.length) {
-            List<Character> newKey = new ArrayList<Character>();
-
-            double factor = inChar.length / keyChar.length;
-            int repeats = ((int)factor) + 1;
-
-            for (int k = 0; k < repeats; k++) {
-                for (char j: keyChar)
-                {
-                    newKey.add(j);
-                }
-            }//newkey must now be equal or longer than plaintextchars
-
-            while (newKey.size() > inChar.length) {
-                int lastchar = newKey.size() - 1;
-                newKey.remove(lastchar);
-            }
-            keyChar = getArrayFromList(newKey);
-
-        } else if (inChar.length < keyChar.length) {
-            ArrayList<Character> newKey = new ArrayList<Character> ();
-
-            for (char k: keyChar) {
-                newKey.add(k);
-            }
-
-            while (newKey.size() > inChar.length) {
-                int lastchar = newKey.size() - 1;
-                newKey.remove(lastchar);
-            }
-            keyChar = getArrayFromList(newKey);
-
-        } else {}//key and message are same length
-        //do vernam operation
-
-        for(int k = 0; k < inChar.length; k++) {
-            out[k] = (char) (inChar[k] ^ keyChar[k]);
-        }
-
-        return out;
-        //Console.WriteLine ();
-    }
-
-
     public String DoVigenere(String txt, String pw, boolean enc)
     {
         String text = txt.replaceAll("[^a-zA-Z]", "");
+        Vigenere vig = new Vigenere(pw,txt);
+
+        if()
+
+
         if (enc)
         {
-            String res = "";
-            text = text.toUpperCase();
-            for (int i = 0, j = 0; i < text.length(); i++) {
-                char c = text.charAt(i);
-                if (c < 'A' || c > 'Z') continue;
-                res += (char)((c + key.charAt(j) - 2 * 'A') % 26 + 'A');
-                j = ++j % key.length();
-            }
-            return res;
+            return vig.encrypt();
         }
         else
         {
-            String res = "";
-            text = text.toUpperCase();
-            for (int i = 0, j = 0; i < text.length(); i++) {
-                char c = text.charAt(i);
-                if (c < 'A' || c > 'Z') continue;
-                res += (char)((c - key.charAt(j) + 26) % 26 + 'A');
-                j = ++j % key.length();
-            }
-            return res;
+            return vig.decrypt();
         }
     }
 
@@ -187,6 +125,16 @@ public class Crypto<T> {
         return outArr;
     }
 
-}
+
+    public String charsToString(char[] inp)
+    {
+        String msg = "";
+        for (char c : inp
+             ) {
+            msg += c;
+        }
+        return msg;
+
+    }
 
 }
