@@ -377,21 +377,43 @@ public partial class MainWindow: Gtk.Window
 		case 0:
 			{
 				txt_instruction.Buffer.Text += instr_substitution; 
+				spb_shift.Visible = true;
+				lbl_subshift.Visible = true;
+
+				lbl_keytext.Visible = false;
+				txt_keytext_input.Visible = false;
+
 				break;
 			}
 		case 1:
 			{
 				txt_instruction.Buffer.Text += instr_vernam; 
+				spb_shift.Visible = false;
+				lbl_subshift.Visible = false;
+
+				lbl_keytext.Visible = true;
+				txt_keytext_input.Visible = true;	
+
 				break;
 			}
 		case 2:
 			{
 				txt_instruction.Buffer.Text += instr_transposition; 
+				spb_shift.Visible = false;
+				lbl_subshift.Visible = false;
+
+				lbl_keytext.Visible = true;
+				txt_keytext_input.Visible = true;
 				break;
 			}
 		case 3:
 			{
 				txt_instruction.Buffer.Text += instr_vigenere; 
+				spb_shift.Visible = false;
+				lbl_subshift.Visible = false;
+
+				lbl_keytext.Visible = true;
+				txt_keytext_input.Visible = true;
 				break;
 			}
 		}
