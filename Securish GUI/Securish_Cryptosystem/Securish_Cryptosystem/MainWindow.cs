@@ -376,7 +376,7 @@ public partial class MainWindow: Gtk.Window
 		switch (cmb_algorithm.Active) {
 		case 0:
 			{
-				txt_instruction.Buffer.Text += instr_substitution; 
+			txt_instruction.Buffer.Text += instr_substitution; 
 				spb_shift.Visible = true;
 				lbl_subshift.Visible = true;
 
@@ -387,7 +387,7 @@ public partial class MainWindow: Gtk.Window
 			}
 		case 1:
 			{
-				txt_instruction.Buffer.Text += instr_vernam; 
+			txt_instruction.Buffer.Text += instr_vernam; 
 				spb_shift.Visible = false;
 				lbl_subshift.Visible = false;
 
@@ -398,7 +398,7 @@ public partial class MainWindow: Gtk.Window
 			}
 		case 2:
 			{
-				txt_instruction.Buffer.Text += instr_transposition; 
+			txt_instruction.Buffer.Text += instr_transposition; 
 				spb_shift.Visible = false;
 				lbl_subshift.Visible = false;
 
@@ -408,7 +408,7 @@ public partial class MainWindow: Gtk.Window
 			}
 		case 3:
 			{
-				txt_instruction.Buffer.Text += instr_vigenere; 
+			txt_instruction.Buffer.Text += instr_vigenere; 
 				spb_shift.Visible = false;
 				lbl_subshift.Visible = false;
 
