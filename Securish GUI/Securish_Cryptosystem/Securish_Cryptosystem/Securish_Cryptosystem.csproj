@@ -58,6 +58,7 @@
     </Reference>
     <Reference Include="Mono.Posix" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -72,6 +73,8 @@
     <Compile Include="MessageBox.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="CryptoSystem.cs" />
+    <Compile Include="demonstration.cs" />
+    <Compile Include="gtk-gui\Securish_Cryptosystem.demonstration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

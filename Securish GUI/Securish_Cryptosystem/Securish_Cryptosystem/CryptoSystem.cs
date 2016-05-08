@@ -13,23 +13,18 @@ namespace Securish_Cryptosystem
 		int key = 1994;
 
 
-		public void DoSubstitution(byte[] inBytes, ref byte[] outBytes, int value, bool encryption)
+		public byte[] DoSubstitution(byte[] inBytes, int value, bool encryption)
 		{
+
+			byte[] outBytes = inBytes;
 			int absVal = Math.Abs (value);
 			if (!encryption)
 				absVal *= -1;//minus value for decryption no matter input value
 
-			if (inBytes.Length != outBytes.Length)
-			{
-				Console.WriteLine ("!!!!Bytes in: " + inBytes.Length);
-				Console.WriteLine ("!!!!Bytes out: " + inBytes.Length);
-
-				throw new ArgumentException ("Byte-array are not of same length");
-			}
-
 			for (int i = 0; i < inBytes.Length; i++) {
 				outBytes [i] = (byte)(inBytes [i]+absVal); //shift the byte value
 			}
+			return outBytes;
 
 		}
 
@@ -200,6 +195,16 @@ namespace Securish_Cryptosystem
 			arr = Array.FindAll<char>(arr, (c => (char.IsLetter(c))));                             
 			tmp = new string(arr);
         	return tmp;
+		}
+		public string CalculateChecksumFile(byte[] byteToCalculate)
+		{
+			int checksum = 0;
+			foreach (byte chData in byteToCalculate)
+			{
+				checksum += chData;
+			}
+			checksum &= 0xff;
+			return checksum.ToString("X2");
 		}
 
 	}

@@ -32,6 +32,9 @@ public partial class MainWindow: Gtk.Window
 		Build ();
 		//initialization
 
+		demonstration d = new demonstration ();
+		d.Show ();
+
 		instructionStart = 	"-> Firstly, provide input, either by selecting a file or input text in the provided box.\n" +
 							"-> Secondly, choose your encryption algorithm and mode using the provided comboboxes.\n" +
 							"-> Finally, provide and encryption key (password) or numeric shift value number\n\n";
@@ -103,7 +106,7 @@ public partial class MainWindow: Gtk.Window
 								outputText = crypt_text.DoSubstitutionText (plainText, shiftValue, true);
 								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							} else {
-								crypt_data.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, true);
+								outputBytes = crypt_data.DoSubstitution (fileToProcess, shiftValue, true);
 								writeByteArrToFile (outputBytes, filePath + "_enc");
 								addToLog ("Encrypted file written to " + filePath + "_enc");
 							}
@@ -170,7 +173,7 @@ public partial class MainWindow: Gtk.Window
 								outputText = crypt_text.DoSubstitutionText (plainText, shiftValue, false);
 								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							} else {
-								crypt_data.DoSubstitution (fileToProcess, ref outputBytes, shiftValue, false);
+							 outputBytes = crypt_data.DoSubstitution (fileToProcess, shiftValue, false);
 								writeByteArrToFile (outputBytes, filePath + "_dec");
 								addToLog ("Decrypted file written to " + filePath + "_dec");
 							}
@@ -329,8 +332,7 @@ public partial class MainWindow: Gtk.Window
 		foreach (char c in chars)
 			msg += c.ToString();
 
-		return msg;
-						
+		return msg;				
 	}
 
 	private byte[] GetBytes(string str)
