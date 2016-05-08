@@ -9,13 +9,15 @@ namespace Securish_Cryptosystem
 		{
 		}
 		
+		bool charsIsPrime;
+		int key = 1994;
+
+
 		public void DoSubstitution(byte[] inBytes, ref byte[] outBytes, int value, bool encryption)
 		{
 			int absVal = Math.Abs (value);
 			if (!encryption)
 				absVal *= -1;//minus value for decryption no matter input value
-
-
 
 			if (inBytes.Length != outBytes.Length)
 			{
@@ -26,7 +28,7 @@ namespace Securish_Cryptosystem
 			}
 
 			for (int i = 0; i < inBytes.Length; i++) {
-				outBytes [i] = (byte)(inBytes [i]+absVal);
+				outBytes [i] = (byte)(inBytes [i]+absVal); //shift the byte value
 			}
 
 		}
@@ -41,13 +43,11 @@ namespace Securish_Cryptosystem
 
 			char[] tmp = input.ToCharArray ();
 			foreach (char c in tmp) {
-				outp += (char) ((int)c + absVal);
+				outp += (char) ((int)c + absVal); //apply shift value
 			}
 			return outp;
 		}
-		
-		bool charsIsPrime;
-		int key = 1994;
+
 
 		public T[] doTransposition(T[] data, bool encryption)
 		{
@@ -61,7 +61,7 @@ namespace Securish_Cryptosystem
 
 		}
 
-		private int[] GetExchanges(int size, int key)
+		private int[] GetExchanges(int size, int key) //create swapping pairs
 		{
 			int[] exchanges = new int[size - 1];
 			var rand = new Random(key);
@@ -73,7 +73,7 @@ namespace Securish_Cryptosystem
 			return exchanges;
 		}
 
-		private T[] Enc(T[] data, int key)
+		private T[] Enc(T[] data, int key)//transposition encryption
 		{
 			int size = data.Length;
 			int[] ex = GetExchanges(size, key);
@@ -87,7 +87,7 @@ namespace Securish_Cryptosystem
 			return data;
 		}
 
-		private T[] Dec(T[] data, int key)
+		private T[] Dec(T[] data, int key) //transposition decryption
 		{
 			int size = data.Length;
 			int[] ex = GetExchanges(size, key);
@@ -101,8 +101,9 @@ namespace Securish_Cryptosystem
 			return data;
 		}
 		
-		public void DoVernam(byte[] inBytes, byte[] keyBytes, ref byte[] outBytes)
+		public byte[] DoVernam(byte[] inBytes, byte[] keyBytes)
 		{
+			byte[] outBytes = inBytes;
 			//ensure message and key are equal in size
 			if (inBytes.Length > keyBytes.Length) { 
 				List<byte> newKey = new List<byte> ();
@@ -140,22 +141,21 @@ namespace Securish_Cryptosystem
 			} else {}//key and message are same length
 
 			//do vernam operation
-
 			for (int i = 0; i < inBytes.Length; i++) {
-				outBytes [i] = (byte)(inBytes [i] ^ keyBytes [i]);
+				outBytes [i] = (byte)(inBytes [i] ^ keyBytes [i]);//XOR bytes together
 			}
-			//Console.WriteLine ();
+			return outBytes;
 		}
 
 
-		private byte[] GetBytes(string str)
+		private byte[] GetBytes(string str)//method for converting from string to byte[]
 		{
 			byte[] bytes = new byte[str.Length * sizeof(char)];
 			System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
 			return bytes;
 		}
 
-		private string GetString(byte[] bytes)
+		private string GetString(byte[] bytes)//method for getting a string representation of a byte[]
 		{
 			char[] chars = new char[bytes.Length / sizeof(char)];
 			System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
@@ -170,25 +170,32 @@ namespace Securish_Cryptosystem
         	else
         		d = -1;
         
-            int pwi = 0, tmp;
+			int counter = 0;
+			int tempCharValue;
             string ns = "";
+			//pretpare both text and key strings
             txt = prepareText(txt);
             pw = prepareText(pw);
             foreach (char t in txt)
             {
-                if (t < 65) continue;
-                tmp = t - 65 + d * (pw[pwi] - 65);
-                if (tmp < 0) tmp += 26;
-                ns += Convert.ToChar(65 + (tmp % 26));
-                if (++pwi == pw.Length) pwi = 0;
+				if (t < 65) {
+					continue; //skip to next text
+				}
+                tempCharValue = t - 65 + d * (pw[counter] - 65);
+				if (tempCharValue < 0) {
+					tempCharValue += 26;//shift char into alphabet
+				}
+                ns += Convert.ToChar(65 + (tempCharValue % 26)); 
+				if (++counter == pw.Length) {
+					counter = 0;
+				}
             }
             return ns;
         }
         
-        private string prepareText (string text)
+        private string prepareText (string text) //method to prepare text for viginere
 		{
         	string tmp = text.ToUpper();
-        	
         	char[] arr = tmp.ToCharArray();
 			arr = Array.FindAll<char>(arr, (c => (char.IsLetter(c))));                             
 			tmp = new string(arr);

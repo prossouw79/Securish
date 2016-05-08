@@ -118,11 +118,11 @@ public partial class MainWindow: Gtk.Window
 							byte[] outputBytes = fileToProcess;
 
 							if (filePath == "-") {
-								crypt_text.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
+								outputBytes = crypt_text.DoVernam (GetBytes (plainText), GetBytes (keyText));
 								outputText = GetString (outputBytes);
 								txt_log.Buffer.Text += "\n\n\t" + "Ciphertext:\t\t" + outputText;
 							} else {
-								crypt_data.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
+								outputBytes=  crypt_data.DoVernam (fileToProcess, GetBytes (keyText));
 								writeByteArrToFile (outputBytes, filePath + "_enc");
 								addToLog ("Encrypted file written to " + filePath + "_enc");
 							}
@@ -185,11 +185,11 @@ public partial class MainWindow: Gtk.Window
 							byte[] outputBytes = fileToProcess;
 
 							if (filePath == "-") {
-								crypt_text.DoVernam (GetBytes (plainText), GetBytes (keyText), ref outputBytes);
+								outputBytes = crypt_text.DoVernam (GetBytes (plainText), GetBytes (keyText));
 								outputText = GetString (outputBytes);
 								addToLog ("Original Text:\t" + outputText);
 							} else {
-								crypt_data.DoVernam (fileToProcess, GetBytes (keyText), ref outputBytes);
+								outputBytes = crypt_data.DoVernam (fileToProcess, GetBytes (keyText));
 								writeByteArrToFile (outputBytes, filePath + "_dec");
 								addToLog ("Decrypted file written to " + filePath + "_dec");
 							}

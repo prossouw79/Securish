@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Securish_Cryptosystem\Securish_Cryptosystem.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Securish_Cryptosystem/CryptoSystem.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Securish_Cryptosystem/MainWindow.cs">
     <Files>
-      <File FileName="Securish_Cryptosystem/MainWindow.cs" Line="420" Column="18" />
-      <File FileName="Securish_Cryptosystem/CryptoSystem.cs" Line="197" Column="1" />
+      <File FileName="Securish_Cryptosystem/MainWindow.cs" Line="186" Column="7" />
+      <File FileName="Securish_Cryptosystem/CryptoSystem.cs" Line="106" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
