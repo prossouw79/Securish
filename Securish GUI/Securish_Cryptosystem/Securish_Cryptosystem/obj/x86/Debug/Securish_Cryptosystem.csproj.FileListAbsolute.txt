@@ -3,3 +3,8 @@ C:\Users\Pieter\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Sec
 C:\Users\Pieter\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.csprojResolveAssemblyReference.cache
 C:\Users\Pieter\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.exe
 C:\Users\Pieter\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.pdb
+C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\Securish_Cryptosystem.exe
+C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\Securish_Cryptosystem.pdb
+C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.csprojResolveAssemblyReference.cache
+C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.exe
+C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.pdb
