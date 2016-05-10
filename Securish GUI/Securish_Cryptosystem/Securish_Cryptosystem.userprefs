@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Securish_Cryptosystem\MainWindow.cs">
     <Files>
-      <File FileName="Securish_Cryptosystem\MainWindow.cs" Line="71" Column="15" />
-      <File FileName="Securish_Cryptosystem\CryptoSystem.cs" Line="39" Column="1" />
-      <File FileName="Securish_Cryptosystem\demonstration.cs" Line="82" Column="27" />
+      <File FileName="Securish_Cryptosystem\MainWindow.cs" Line="126" Column="73" />
+      <File FileName="Securish_Cryptosystem\CryptoSystem.cs" Line="1" Column="1" />
+      <File FileName="Securish_Cryptosystem\demonstration.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

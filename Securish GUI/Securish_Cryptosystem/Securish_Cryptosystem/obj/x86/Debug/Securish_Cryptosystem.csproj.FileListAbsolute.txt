@@ -8,3 +8,20 @@ C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosy
 C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.csprojResolveAssemblyReference.cache
 C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.exe
 C:\Users\Pieter Rossouw\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.pdb
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\Securish_Cryptosystem.exe
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\Securish_Cryptosystem.pdb
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\atk-sharp.dll
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\gdk-sharp.dll
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\glade-sharp.dll
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\glib-sharp.dll
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\gtk-sharp.dll
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\Mono.Posix.dll
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\pango-sharp.dll
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\gdk-sharp.pdb
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\glib-sharp.pdb
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\glade-sharp.pdb
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\pango-sharp.pdb
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\bin\Debug\atk-sharp.pdb
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.csprojResolveAssemblyReference.cache
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.exe
+C:\Users\Janine\Documents\GitHub\Securish\Securish GUI\Securish_Cryptosystem\Securish_Cryptosystem\obj\x86\Debug\Securish_Cryptosystem.pdb
