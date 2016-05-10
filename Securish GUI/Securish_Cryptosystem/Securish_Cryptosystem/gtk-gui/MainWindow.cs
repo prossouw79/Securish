@@ -86,7 +86,7 @@ public partial class MainWindow
 		global::Stetic.Gui.Initialize (this);
 		// Widget MainWindow
 		this.Name = "MainWindow";
-		this.Title = global::Mono.Unix.Catalog.GetString ("Securish");
+		this.Title = global::Mono.Unix.Catalog.GetString ("ITRW 885 - Securish");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		this.BorderWidth = ((uint)(4));
 		this.DefaultWidth = 960;

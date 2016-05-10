@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Securish_Cryptosystem\Securish_Cryptosystem.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Securish_Cryptosystem\MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Securish_Cryptosystem\CryptoSystem.cs">
     <Files>
-      <File FileName="Securish_Cryptosystem\MainWindow.cs" Line="126" Column="73" />
-      <File FileName="Securish_Cryptosystem\CryptoSystem.cs" Line="1" Column="1" />
+      <File FileName="Securish_Cryptosystem\MainWindow.cs" Line="101" Column="7" />
+      <File FileName="Securish_Cryptosystem\CryptoSystem.cs" Line="190" Column="9" />
       <File FileName="Securish_Cryptosystem\demonstration.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
