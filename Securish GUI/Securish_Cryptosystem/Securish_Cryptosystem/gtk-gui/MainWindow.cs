@@ -5,6 +5,8 @@ public partial class MainWindow
 {
 	private global::Gtk.VBox vbox3;
 	
+	private global::Gtk.HBox hbox6;
+	
 	private global::Gtk.Frame frame8;
 	
 	private global::Gtk.Alignment GtkAlignment;
@@ -61,19 +63,13 @@ public partial class MainWindow
 	
 	private global::Gtk.Button btn_Go;
 	
-	private global::Gtk.Label GtkLabel10;
-	
-	private global::Gtk.HPaned hpaned1;
-	
-	private global::Gtk.Frame frame4;
-	
-	private global::Gtk.Alignment GtkAlignment8;
+	private global::Gtk.Label GtkLabel7;
 	
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	
 	private global::Gtk.TextView txt_log;
 	
-	private global::Gtk.Label GtkLabel7;
+	private global::Gtk.Label GtkLabel10;
 	
 	private global::Gtk.Frame frame3;
 	
@@ -100,6 +96,10 @@ public partial class MainWindow
 		this.vbox3.Name = "vbox3";
 		this.vbox3.Spacing = 6;
 		// Container child vbox3.Gtk.Box+BoxChild
+		this.hbox6 = new global::Gtk.HBox ();
+		this.hbox6.Name = "hbox6";
+		this.hbox6.Spacing = 6;
+		// Container child hbox6.Gtk.Box+BoxChild
 		this.frame8 = new global::Gtk.Frame ();
 		this.frame8.Name = "frame8";
 		this.frame8.ShadowType = ((global::Gtk.ShadowType)(0));
@@ -276,7 +276,7 @@ public partial class MainWindow
 		this.spb_shift.Adjustment.PageIncrement = 10D;
 		this.spb_shift.ClimbRate = 1D;
 		this.spb_shift.Numeric = true;
-		this.spb_shift.Value = 1D;
+		this.spb_shift.Value = 7D;
 		this.hbox12.Add (this.spb_shift);
 		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.hbox12 [this.spb_shift]));
 		w18.Position = 3;
@@ -308,31 +308,17 @@ public partial class MainWindow
 		w23.Position = 4;
 		w23.Expand = false;
 		w23.Fill = false;
-		this.GtkAlignment.Add (this.vbox10);
-		this.frame8.Add (this.GtkAlignment);
-		this.GtkLabel10 = new global::Gtk.Label ();
-		this.GtkLabel10.Name = "GtkLabel10";
-		this.GtkLabel10.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Select Options:</b>");
-		this.GtkLabel10.UseMarkup = true;
-		this.GtkLabel10.Justify = ((global::Gtk.Justification)(2));
-		this.frame8.LabelWidget = this.GtkLabel10;
-		this.vbox3.Add (this.frame8);
-		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.frame8]));
-		w26.Position = 0;
-		// Container child vbox3.Gtk.Box+BoxChild
-		this.hpaned1 = new global::Gtk.HPaned ();
-		this.hpaned1.CanFocus = true;
-		this.hpaned1.Name = "hpaned1";
-		this.hpaned1.Position = 473;
-		// Container child hpaned1.Gtk.Paned+PanedChild
-		this.frame4 = new global::Gtk.Frame ();
-		this.frame4.Name = "frame4";
-		this.frame4.ShadowType = ((global::Gtk.ShadowType)(0));
-		// Container child frame4.Gtk.Container+ContainerChild
-		this.GtkAlignment8 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
-		this.GtkAlignment8.Name = "GtkAlignment8";
-		this.GtkAlignment8.LeftPadding = ((uint)(12));
-		// Container child GtkAlignment8.Gtk.Container+ContainerChild
+		// Container child vbox10.Gtk.Box+BoxChild
+		this.GtkLabel7 = new global::Gtk.Label ();
+		this.GtkLabel7.Name = "GtkLabel7";
+		this.GtkLabel7.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Log Output:</b>");
+		this.GtkLabel7.UseMarkup = true;
+		this.vbox10.Add (this.GtkLabel7);
+		global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.GtkLabel7]));
+		w24.Position = 5;
+		w24.Expand = false;
+		w24.Fill = false;
+		// Container child vbox10.Gtk.Box+BoxChild
 		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
@@ -344,17 +330,23 @@ public partial class MainWindow
 		this.txt_log.Justification = ((global::Gtk.Justification)(3));
 		this.txt_log.WrapMode = ((global::Gtk.WrapMode)(2));
 		this.GtkScrolledWindow.Add (this.txt_log);
-		this.GtkAlignment8.Add (this.GtkScrolledWindow);
-		this.frame4.Add (this.GtkAlignment8);
-		this.GtkLabel7 = new global::Gtk.Label ();
-		this.GtkLabel7.Name = "GtkLabel7";
-		this.GtkLabel7.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Log Output:</b>");
-		this.GtkLabel7.UseMarkup = true;
-		this.frame4.LabelWidget = this.GtkLabel7;
-		this.hpaned1.Add (this.frame4);
-		global::Gtk.Paned.PanedChild w30 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.frame4]));
-		w30.Resize = false;
-		// Container child hpaned1.Gtk.Paned+PanedChild
+		this.vbox10.Add (this.GtkScrolledWindow);
+		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.GtkScrolledWindow]));
+		w26.Position = 6;
+		this.GtkAlignment.Add (this.vbox10);
+		this.frame8.Add (this.GtkAlignment);
+		this.GtkLabel10 = new global::Gtk.Label ();
+		this.GtkLabel10.Name = "GtkLabel10";
+		this.GtkLabel10.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Select Options:</b>");
+		this.GtkLabel10.UseMarkup = true;
+		this.GtkLabel10.Justify = ((global::Gtk.Justification)(2));
+		this.frame8.LabelWidget = this.GtkLabel10;
+		this.hbox6.Add (this.frame8);
+		global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.frame8]));
+		w29.Position = 0;
+		w29.Expand = false;
+		w29.Fill = false;
+		// Container child hbox6.Gtk.Box+BoxChild
 		this.frame3 = new global::Gtk.Frame ();
 		this.frame3.Name = "frame3";
 		this.frame3.ShadowType = ((global::Gtk.ShadowType)(0));
@@ -382,10 +374,12 @@ public partial class MainWindow
 		this.GtkLabel5.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Instructions</b>");
 		this.GtkLabel5.UseMarkup = true;
 		this.frame3.LabelWidget = this.GtkLabel5;
-		this.hpaned1.Add (this.frame3);
-		this.vbox3.Add (this.hpaned1);
-		global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hpaned1]));
-		w35.Position = 1;
+		this.hbox6.Add (this.frame3);
+		global::Gtk.Box.BoxChild w33 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.frame3]));
+		w33.Position = 1;
+		this.vbox3.Add (this.hbox6);
+		global::Gtk.Box.BoxChild w34 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox6]));
+		w34.Position = 0;
 		this.Add (this.vbox3);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
