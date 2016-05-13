@@ -1,5 +1,0 @@
-C:\Users\Pieter\Documents\GitHub\Securish\CryptoTests\Substitution\crypto\bin\Debug\crypto.exe
-C:\Users\Pieter\Documents\GitHub\Securish\CryptoTests\Substitution\crypto\bin\Debug\crypto.pdb
-C:\Users\Pieter\Documents\GitHub\Securish\CryptoTests\Substitution\crypto\obj\x86\Debug\crypto.csprojResolveAssemblyReference.cache
-C:\Users\Pieter\Documents\GitHub\Securish\CryptoTests\Substitution\crypto\obj\x86\Debug\crypto.exe
-C:\Users\Pieter\Documents\GitHub\Securish\CryptoTests\Substitution\crypto\obj\x86\Debug\crypto.pdb
